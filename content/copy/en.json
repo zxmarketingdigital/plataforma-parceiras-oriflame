@@ -1,0 +1,405 @@
+{
+  "brand": {
+    "name": "Atelier Nórdico",
+    "tagline": "Nordic beauty, with someone who knows it well.",
+    "independent_notice": "Independent Oriflame partner. This is not the official Oriflame shop: orders, prices and terms are Oriflame's own."
+  },
+  "lp": {
+    "nav": {
+      "diagnostico": "Assessment",
+      "caminhos": "Options",
+      "como_funciona": "How it works",
+      "faq": "Questions",
+      "lang_label": "Language"
+    },
+    "hero": {
+      "eyebrow": "Free assessment · with {leader_name}",
+      "title": "Before you decide, look at",
+      "title_em": "your own numbers.",
+      "subtitle": "The beauty products you already like, with a partner discount, and a clear estimate of what that could mean for you. Answer 7 questions and get a 12-month simulation, a report and a 30-day plan. Free, with no commitment.",
+      "cta_primary": "Take the assessment",
+      "cta_secondary": "See the options",
+      "microcopy": "About 3 minutes · no commitment · an estimate, not a promise"
+    },
+    "caminhos": {
+      "title": "Three options. Choose yours.",
+      "intro": "You can simply buy for yourself and stop there. Everything else is optional and always at your own pace.",
+      "items": [
+        {
+          "key": "comprar",
+          "title": "Buy for yourself",
+          "text": "The products you already like, at partner prices. No selling to anyone and no obligation to buy stock.",
+          "cta": "See how much I could save"
+        },
+        {
+          "key": "poupar",
+          "title": "A little extra, in the time you have",
+          "text": "Share the products with people you already know, whenever it suits you. No targets set for you, and you can stop whenever you like.",
+          "cta": "Work out my extra"
+        },
+        {
+          "key": "negocio",
+          "title": "Build a business of your own",
+          "text": "An independent activity with your own team, and support from {leader_name} from day one. The start is slow, and the assessment shows it as it is.",
+          "cta": "See the business potential"
+        }
+      ]
+    },
+    "passos": {
+      "title": "How it works",
+      "intro": "Four steps. To find out, you only need the first.",
+      "items": [
+        {
+          "n": "01",
+          "title": "Take the assessment",
+          "text": "Seven questions about your time, your contacts and what you are looking for. It takes about 3 minutes."
+        },
+        {
+          "n": "02",
+          "title": "Get your report and plan",
+          "text": "Three 12-month scenarios with every assumption shown, a PDF report and a 30-day plan."
+        },
+        {
+          "n": "03",
+          "title": "Talk to {leader_name}, if you want to",
+          "text": "If you have questions, you speak to a real person. If not, the report is still yours to keep."
+        },
+        {
+          "n": "04",
+          "title": "Sign up and start at your own pace",
+          "text": "If you decide to go ahead, you sign up with {leader_name}'s code and choose where to begin."
+        }
+      ]
+    },
+    "diagnostico_cta": {
+      "title": "The assessment is yours, even if you go no further.",
+      "text": "An estimate built on your time, your contacts and your country, not someone else's. You get the information first, then you decide.",
+      "bullets": [
+        "Three 12-month scenarios, with every assumption shown",
+        "A PDF report sent to your inbox",
+        "A 30-day plan shaped around what you are looking for"
+      ],
+      "cta": "Start the assessment",
+      "microcopy": "About 3 minutes · no commitment · an estimate, not a promise"
+    },
+    "lider": {
+      "eyebrow": "Who is on the other side",
+      "title": "Hello, I'm {leader_name}.",
+      "fallback_bio": "I'm an independent Oriflame partner, and I don't speak for the brand. I help people who want to get to know the products, pay less for what they already use, or start something of their own. Before anyone decides anything, I prefer to lay it all out clearly: the terms, what is involved and what you can realistically expect. If you still have questions after the assessment, get in touch. You'll hear back from me, with no rush and no pressure.",
+      "cta_whatsapp": "Message {leader_name} on WhatsApp"
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": [
+        {
+          "q": "Does it cost anything?",
+          "a": "The assessment is free. Sign-up terms are set by Oriflame and differ from country to country; {leader_name} will show you all of them before you sign up, including what costs something and what does not. There is no obligation to buy stock."
+        },
+        {
+          "q": "Do I have to sell, or bring other people in?",
+          "a": "No. You can sign up just to buy for yourself. Sharing the products is your choice, and inviting others is optional: you don't need to do it to buy at a discount or to sell. In Oriflame's plan, earnings come from product orders, not from signing people up."
+        },
+        {
+          "q": "Is this the official Oriflame shop?",
+          "a": "No. Atelier Nórdico is an independent Oriflame partner. The products, orders, prices and terms are Oriflame's; the support comes from {leader_name}."
+        },
+        {
+          "q": "Are the numbers in the assessment guaranteed?",
+          "a": "No, and that is why we call it a simulation. It comes from your answers, the member discount Oriflame publishes for your country and assumptions we show in full. Team bonuses are left out of the calculation. Real results depend on your time and your sales."
+        },
+        {
+          "q": "How much time does it take?",
+          "a": "As much as you have. The assessment asks how many hours a week you can give it and adjusts the scenarios to match. If you only want to buy, it takes no time at all."
+        },
+        {
+          "q": "What happens to my data?",
+          "a": "It is used to send you the report and, if you ask, for {leader_name} to reply to you. It is never sold or shared for advertising. You can ask to see it or have it deleted at any time, under UK GDPR."
+        },
+        {
+          "q": "Can I do this from another country?",
+          "a": "The assessment works for Portugal, Spain, France and the United Kingdom. Each country has its own terms, and the calculation takes the country you choose into account."
+        },
+        {
+          "q": "Is this self-employed work?",
+          "a": "Yes. It is an independent, self-employed activity, not an employment contract, with the tax obligations that apply in your country. {leader_name} can walk you through the first steps; for your own situation, it is best to speak to an accountant."
+        }
+      ]
+    },
+    "cta_final": {
+      "title": "3 minutes to find out, not to decide.",
+      "text": "Look at your numbers in your own time. The decision is still yours, today or later on.",
+      "cta": "Take the assessment"
+    },
+    "footer": {
+      "legal": "Atelier Nórdico is an independent Oriflame partner and is not the official Oriflame shop. Oriflame is a brand of Oriflame Cosmetics. The estimates shown are simulations, not a promise of income.",
+      "privacy": "Privacy policy",
+      "made_by": "Plataforma ZX LAB"
+    }
+  },
+  "chat": {
+    "header": {
+      "title": "{leader_name}",
+      "status": "Atelier Nórdico · independent Oriflame partner"
+    },
+    "greeting": [
+      "Hello, I'm {leader_name} from Atelier Nórdico. I work with Oriflame independently, not on its behalf.",
+      "There are 7 quick questions in an automated form. At the end you'll get a 12-month simulation, a PDF report and a 30-day plan. It takes about 3 minutes; if you'd like to talk afterwards, I'll reply myself."
+    ],
+    "contact_step": {
+      "intro": "Before the questions, I need to know where to send your report. Your email is for sending you the PDF. Your WhatsApp number is only so I can reply if you'd like to ask me anything: I won't call or message you unless you ask. Your country lets the calculation use the right terms.",
+      "name_label": "Name",
+      "email_label": "Email (this is where we send your report)",
+      "whatsapp_label": "WhatsApp, with your country code (e.g. +44)",
+      "country_label": "Country",
+      "consent_text": "I agree that Atelier Nórdico, an independent Oriflame partner, and {leader_name} may process my name, email, WhatsApp number and answers to send me my assessment report and, if I ask, to reply to my questions. My data will not be sold or used for advertising. I can ask to see it or have it deleted at any time. I have read the privacy policy.",
+      "submit": "Continue",
+      "errors": {
+        "name": "Please enter your name.",
+        "email": "Please enter a valid email address. That's where we send your report.",
+        "whatsapp": "Please enter your number with the country code, for example +44.",
+        "consent": "To continue, please agree to the processing of your data.",
+        "generic": "We couldn't save your details. Please try again in a moment."
+      }
+    },
+    "after_contact": "Lovely to meet you, {name}. Let's start.",
+    "questions": {
+      "pais": {
+        "text": "Which country do you live in?",
+        "options": {
+          "PT": "Portugal",
+          "ES": "Spain",
+          "FR": "France",
+          "GB": "United Kingdom"
+        }
+      },
+      "objetivo": {
+        "text": "What are you looking for right now?",
+        "options": {
+          "comprar": "Buying for myself, at a discount",
+          "rendimento": "A little extra income",
+          "negocio": "Building a business"
+        }
+      },
+      "horas": {
+        "text": "Realistically, how many hours a week could you give this?",
+        "options": {
+          "2-5": "Between 2 and 5 hours",
+          "5-10": "Between 5 and 10 hours",
+          "10+": "More than 10 hours"
+        }
+      },
+      "contactos": {
+        "text": "How many people are you in regular touch with (family, friends, colleagues, neighbours)?",
+        "options": {
+          "<50": "Fewer than 50",
+          "50-150": "Between 50 and 150",
+          "150+": "More than 150"
+        }
+      },
+      "experiencia": {
+        "text": "Do you have any experience in sales or customer service?",
+        "options": {
+          "nenhuma": "None",
+          "alguma": "Some",
+          "muita": "Quite a lot"
+        }
+      },
+      "redes": {
+        "text": "How do you use social media?",
+        "options": {
+          "pouco": "Not much, mostly to browse",
+          "ativo": "I post now and then",
+          "muito": "I post often"
+        }
+      },
+      "consumo": {
+        "text": "On average, how much do you spend a month on beauty and personal care?",
+        "options": {
+          "<30": "Less than 30 {currency}",
+          "30-80": "Between 30 and 80 {currency}",
+          "80+": "More than 80 {currency}"
+        }
+      }
+    },
+    "reactions": [
+      "Noted.",
+      "That makes sense.",
+      "Thank you, that helps.",
+      "Lots of people start exactly here."
+    ],
+    "calculating": "Working out the numbers from your answers…",
+    "result": {
+      "intro": "This is a simulation, not a promise. It shows what could happen under the assumptions listed below.",
+      "scenarios": {
+        "conservador": "Cautious",
+        "provavel": "Likely",
+        "ambicioso": "Ambitious"
+      },
+      "per_month": "a month",
+      "month12_label": "In month 12",
+      "avg_label": "Monthly average over the first year",
+      "rank_label": "Member discount (official)",
+      "assumptions_title": "Assumptions used",
+      "disclaimer": "A simulation based on your answers and on the terms Oriflame publishes for your country (October 2026): the member discount on orders. Team bonuses are left out of the calculation, because Oriflame does not publish the level table. It is not a promise of income: real results depend on your time, your sales and the official terms in force.",
+      "example_table_notice": "Example table: these figures do not yet use Oriflame's official plan for {country}. They will be updated once the official plan arrives.",
+      "analysis_title": "Your analysis",
+      "plan_title": "Your 30-day plan",
+      "week_label": "Week",
+      "pdf_ready": "Your report is ready and has been sent to your inbox.",
+      "pdf_pending": "Your PDF report is being prepared. It will reach your inbox within a few minutes.",
+      "pdf_download": "Download the report (PDF)",
+      "cta_signup": "Sign up with {leader_name}'s code",
+      "cta_whatsapp": "Message {leader_name} on WhatsApp",
+      "whatsapp_prefill": "Hi {leader_name}, it's {name}. I've done the assessment and I'd like to ask a few questions.",
+      "restart": "Start the assessment again"
+    },
+    "errors": {
+      "network": "The connection dropped for a moment. Please check your internet and try again.",
+      "rate_limit": "We've had a lot of requests in a row. Please wait a minute and try again."
+    }
+  },
+  "report_fallback": {
+    "perfis": {
+      "consumidora": {
+        "label": "Buying for yourself, at a discount",
+        "analysis": "From your answers, what you are after is simple: to keep using the products you like and to pay less for them. That is a complete option in its own right, not a compulsory first step towards something else. With the partner discount, part of what you already spend on beauty each month would stay with you, and the simulation shows what that could add up to over a year, based on the spending you mentioned. If, over time, one or two people close to you ask you to order for them too, you can, and that could help cover part of your own spending. But you don't have to, now or later. There are no targets to meet and no obligation to buy stock. The most useful thing in the first few weeks is to browse the catalogue at your own pace, try the products you already use and compare them with what you paid before. Real figures depend on Oriflame's official terms in your country. The next step is a conversation, not a commitment.",
+        "plan30": [
+          {
+            "week": 1,
+            "title": "Sign up and explore",
+            "actions": [
+              "Sign up with {leader_name}'s code",
+              "Browse the catalogue at your own pace and save your favourites",
+              "Compare the products you already use with the partner price"
+            ]
+          },
+          {
+            "week": 2,
+            "title": "Your first order",
+            "actions": [
+              "Place your first order, just for yourself",
+              "Try one new product alongside your usual ones",
+              "Ask {leader_name} anything you'd like to know about delivery"
+            ]
+          },
+          {
+            "week": 3,
+            "title": "Share, only if you want to",
+            "actions": [
+              "Show the catalogue to anyone who asks about the products",
+              "Note down what those people would like to try",
+              "Decide whether or not you want to order for them"
+            ]
+          },
+          {
+            "week": 4,
+            "title": "Review and decide",
+            "actions": [
+              "Compare what you spent with what you would have spent without the discount",
+              "Choose the products to restock next month",
+              "Decide whether to keep simply buying or find out more"
+            ]
+          }
+        ]
+      },
+      "rendimento_extra": {
+        "label": "A little extra, at your own pace",
+        "analysis": "You told us you are looking for a little extra income that fits into the life you already have, and this analysis was made with that in mind. The hours per week and the contacts you mentioned weigh most in the result, more than enthusiasm or someone else's example. So treat the likely scenario as your reference point and the cautious one as a realistic starting point. The main lever is not constantly finding new customers, but having customers who order again. Two or three happy, well-looked-after people are worth more than lots of one-off conversations. In the first few months it is normal to move slowly, while you get to know the products and build a short, regular routine. Sharing is always your choice, with people you already know and at your own pace, and you can stop whenever you like. Remember that this is a simulation: real results depend on your time, your sales and the official terms in your country. The next step is a conversation, not a commitment.",
+        "plan30": [
+          {
+            "week": 1,
+            "title": "Lay the groundwork",
+            "actions": [
+              "Make a list of the people you naturally know: family, friends, colleagues",
+              "Set aside a short, fixed slot each day for this",
+              "Get to know the most popular products in the catalogue"
+            ]
+          },
+          {
+            "week": 2,
+            "title": "First conversations",
+            "actions": [
+              "Share the catalogue with the first people on your list",
+              "Ask what they are looking for rather than offering everything",
+              "Note down each conversation and the interest shown"
+            ]
+          },
+          {
+            "week": 3,
+            "title": "First orders",
+            "actions": [
+              "Place your first customer orders",
+              "Follow up with each customer after delivery",
+              "Ask for feedback on the products they tried"
+            ]
+          },
+          {
+            "week": 4,
+            "title": "Take stock",
+            "actions": [
+              "Go over with {leader_name} what worked and what to change",
+              "Identify the customers most likely to order again",
+              "Set a realistic goal for your second month"
+            ]
+          }
+        ]
+      },
+      "construtora_negocio": {
+        "label": "Building a business of your own",
+        "analysis": "You chose to build a business, and the first thing to understand is where the potential lies: less in your own sales and more in building a team, meaning inviting people and helping them sell well. Not everyone you invite will want to sell, and that is normal. Your sales experience and the way you use social media can speed that process up, but they cannot replace it. It is worth being clear about the start: the first few months are usually slow, because you are building a customer base, learning the plan and supporting your first team members. The simulation reflects that gradual start, and the ambitious scenario only makes sense if the team grows steadily. Building a team is about support, not persuasion: the right people stay when they see a method and honesty. {leader_name} works alongside you from day one. Real results depend on your work and on the official terms in your country. The next step is a conversation, not a commitment.",
+        "plan30": [
+          {
+            "week": 1,
+            "title": "Your base and the plan",
+            "actions": [
+              "Build a first customer base of your own",
+              "Go through the rules of Oriflame's plan with {leader_name}: how earnings work and what counts at each level",
+              "Decide how much time you will give it each week"
+            ]
+          },
+          {
+            "week": 2,
+            "title": "Presence and first invitations",
+            "actions": [
+              "Organise your social media presence, with no income claims",
+              "Send your first invitations to people who have already shown interest",
+              "Suggest the assessment to anyone who wants to decide with the facts"
+            ]
+          },
+          {
+            "week": 3,
+            "title": "Your first team members",
+            "actions": [
+              "Welcome the first people who decide to go ahead",
+              "Run your first induction together with {leader_name}",
+              "Help each person set their own pace"
+            ]
+          },
+          {
+            "week": 4,
+            "title": "Plan the next 90 days",
+            "actions": [
+              "Hold a 90-day planning session with {leader_name}",
+              "Review customers, team and what you learnt in the first month",
+              "Choose two priorities for the next quarter"
+            ]
+          }
+        ]
+      }
+    },
+    "email": {
+      "subject": "{name}, your assessment report",
+      "body": "Hello {name},\n\nIt's {leader_name} here, an independent Oriflame partner. Thank you for taking the assessment.\n\nYour PDF report is attached, with the three 12-month scenarios, the assumptions behind each one and your 30-day plan. Please remember that it is a simulation, not a promise: it uses the member discount Oriflame publishes for your country and leaves team bonuses out.\n\nIf you have any questions, just reply to this email or message me on WhatsApp. If not, there is nothing you need to do.\n\nYou can ask to see or delete your data at any time by replying to this email.\n\nWarm regards,\n{leader_name}\nAtelier Nórdico · independent Oriflame partner"
+    }
+  },
+  "assumptions": {
+    "clients": "Around {x} customers a month after 6 months",
+    "ticket": "Average order per customer of around {x}",
+    "recruits": "Around {x} people in the team after 12 months",
+    "retention": "Around {x} of customers order again the following month",
+    "ramp": "The first {x} months are a slower start, with fewer sales",
+    "personal": "Your own spending of around {x} a month, with the partner discount",
+    "member_discount": "A member discount of {x} on every order, the term Oriflame publishes for your country",
+    "team_excluded": "Team bonuses (Team Bonus, Plus Programme) are not part of this simulation: Oriflame does not publish the level table. Only your own sales and spending count."
+  }
+}

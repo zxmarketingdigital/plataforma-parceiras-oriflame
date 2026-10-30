@@ -1,0 +1,16 @@
+# Nunca levar segredos, dados locais nem binários do host para a imagem.
+.env
+.env.*
+!.env.example
+.git
+node_modules
+.next
+data
+backups
+.localdev
+.vitest
+.superpowers
+_night-artifacts
+scripts/demo-credentials.md
+*.OK
+*.tsbuildinfo

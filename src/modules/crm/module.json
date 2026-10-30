@@ -1,0 +1,4 @@
+{ "key": "crm", "setor": "vendas", "fase": 1,
+  "rotas": ["/painel/*", "/api/leads/*", "/api/team/*", "/api/metrics", "/api/settings/*"],
+  "emite": ["lead.etapa_alterada", "lead.dono_alterado", "lead.apagado"], "ouve": ["lead.criado", "diagnostico.concluido"],
+  "permissoes": ["leads.read", "leads.write", "leads.delete", "leads.export", "team.read", "team.invite", "team.deactivate", "settings.write"], "agentes": [] }

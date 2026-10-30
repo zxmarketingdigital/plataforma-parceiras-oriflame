@@ -1,0 +1,119 @@
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.04fr) minmax(18rem, 0.96fr);
+  align-items: center;
+  gap: clamp(var(--space-8), 7vw, var(--space-12));
+  width: min(100%, var(--content-width));
+  margin: 0 auto;
+  padding: clamp(var(--space-10), 10vw, 8rem) var(--gutter) clamp(var(--space-10), 11vw, 9rem);
+}
+
+.copy {
+  min-width: 0;
+}
+
+.eyebrow {
+  margin: 0 0 var(--space-5);
+  color: var(--color-dark);
+  font-size: 0.78rem;
+  font-weight: 750;
+  letter-spacing: 0.095em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  max-width: 12ch;
+  margin: 0;
+  font-family: var(--font-editorial);
+  font-size: clamp(3rem, 7vw, 6.15rem);
+  font-weight: 560;
+  letter-spacing: -0.065em;
+  line-height: 0.91;
+}
+
+.hero h1 em {
+  color: var(--color-accent);
+  font-style: italic;
+  font-weight: 500;
+}
+
+.subtitle {
+  max-width: 40rem;
+  margin: var(--space-7) 0 0;
+  color: var(--color-muted);
+  font-size: clamp(1rem, 1.6vw, 1.18rem);
+  line-height: 1.65;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-7);
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3) var(--space-5);
+  border-radius: 999px;
+  font-weight: 720;
+  text-align: center;
+  text-decoration: none;
+}
+
+.primary {
+  background: var(--color-dark);
+  color: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.primary:hover {
+  background: #23483e;
+}
+
+.secondary {
+  border: 1px solid var(--color-border);
+  color: var(--color-dark);
+}
+
+.secondary:hover {
+  border-color: var(--color-dark);
+  background: rgb(255 255 255 / 0.6);
+}
+
+.microcopy {
+  margin: var(--space-4) 0 0;
+  color: var(--color-muted);
+  font-size: 0.81rem;
+}
+
+@media (max-width: 48rem) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: var(--space-7);
+    padding-top: var(--space-10);
+  }
+
+  .hero h1 {
+    max-width: 13ch;
+  }
+}
+
+@media (max-width: 28rem) {
+  .hero {
+    padding-inline: 1rem;
+  }
+
+  .actions {
+    display: grid;
+  }
+
+  .primary,
+  .secondary {
+    width: 100%;
+  }
+}

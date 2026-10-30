@@ -1,0 +1,65 @@
+# Versão de teste local com dados fictícios. Uso: docker compose -f compose.dev.yml up
+name: parceiras-dev
+
+x-env: &env
+  NODE_ENV: development
+  APP_URL: http://localhost:3000
+  APP_SECRET: dev-secret-troque-em-producao-0123456789
+  DATABASE_URL: postgres://app_rw:devapp@postgres:5432/plataforma
+  MIGRATE_DATABASE_URL: postgres://postgres:devpg@postgres:5432/plataforma
+  APP_DB_PASSWORD: devapp
+  REDIS_URL: redis://redis:6379
+  SMTP_URL: smtp://mailpit:1025
+  MAIL_FROM: "Diagnóstico <diagnostico@demo.local>"
+  ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+  AI_MODEL: ${AI_MODEL:-claude-sonnet-5-5}
+  AI_TIMEOUT_MS: "20000"
+  PDF_DIR: /app/data/pdf
+
+x-node: &node
+  build: { context: ., dockerfile: docker/Dockerfile, target: dev }
+  environment: *env
+  volumes:
+    - .:/app
+    - node_modules:/app/node_modules
+    - next_cache:/app/.next
+    - data:/app/data
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment: { POSTGRES_PASSWORD: devpg, POSTGRES_DB: plataforma }
+    volumes: [pg:/var/lib/postgresql/data]
+    healthcheck: { test: ["CMD-SHELL", "pg_isready -U postgres -d plataforma"], interval: 2s, retries: 30 }
+
+  redis:
+    image: redis:7-alpine
+    healthcheck: { test: ["CMD", "redis-cli", "ping"], interval: 2s, retries: 30 }
+
+  mailpit:
+    image: axllent/mailpit:v1.27
+    ports: ["8025:8025"]
+
+  # Instala dependências, migra e semeia a demo; termina antes de a app arrancar.
+  init:
+    <<: *node
+    command: sh -c "npm ci && npm run migrate && npm run seed:demo"
+    depends_on:
+      postgres: { condition: service_healthy }
+
+  app:
+    <<: *node
+    command: npm run dev -- --hostname 0.0.0.0 --port 3000
+    ports: ["3000:3000"]
+    depends_on:
+      init: { condition: service_completed_successfully }
+      redis: { condition: service_healthy }
+
+  worker:
+    <<: *node
+    command: npm run worker
+    depends_on:
+      init: { condition: service_completed_successfully }
+      redis: { condition: service_healthy }
+
+volumes: { pg: {}, node_modules: {}, next_cache: {}, data: {} }

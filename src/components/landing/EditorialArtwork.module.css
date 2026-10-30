@@ -1,0 +1,81 @@
+.artwork {
+  position: relative;
+  min-width: 0;
+  isolation: isolate;
+}
+
+.artwork::before {
+  position: absolute;
+  inset: 12% 8% 8% 12%;
+  z-index: -1;
+  border: 1px solid rgb(47 93 80 / 0.16);
+  border-radius: 48% 52% 45% 55%;
+  content: "";
+  transform: rotate(-9deg);
+}
+
+.artwork svg {
+  width: 100%;
+  max-width: 34rem;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+.wash {
+  fill: #dce8d3;
+}
+
+.arc,
+.arcFine,
+.bottleTall,
+.bottleRound,
+.leaf,
+.leafLine {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.arc {
+  stroke: var(--color-dark);
+  stroke-width: 6;
+}
+
+.arcFine {
+  stroke: var(--color-accent);
+  stroke-width: 3;
+}
+
+.bottleTall {
+  fill: rgb(255 255 255 / 0.78);
+  stroke: var(--color-text);
+  stroke-width: 4;
+}
+
+.bottleRound {
+  fill: #75916f;
+  stroke: var(--color-text);
+  stroke-width: 4;
+}
+
+.leaf {
+  fill: #d6be99;
+  stroke: var(--color-text);
+  stroke-width: 3;
+}
+
+.leafLine {
+  stroke: var(--color-text);
+  stroke-width: 3;
+}
+
+.dot {
+  fill: #d6be99;
+}
+
+@media (max-width: 48rem) {
+  .artwork {
+    max-width: 26rem;
+    margin: 0 auto;
+  }
+}

@@ -1,0 +1,10 @@
+.page {
+  min-width: 0;
+  background:
+    radial-gradient(circle at 88% 10%, rgb(220 232 211 / 0.66), transparent 22rem),
+    var(--color-bg);
+}
+
+.main {
+  min-width: 0;
+}

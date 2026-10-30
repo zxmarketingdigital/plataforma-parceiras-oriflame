@@ -1,0 +1,3 @@
+{ "key": "diagnostico", "setor": "recrutamento", "fase": 1,
+  "rotas": ["/[lang]/diagnostico", "/api/diagnostico/*"],
+  "emite": ["lead.criado", "diagnostico.concluido"], "ouve": [], "permissoes": [], "agentes": ["redator-relatorio"] }

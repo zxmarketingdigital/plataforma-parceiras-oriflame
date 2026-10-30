@@ -1,0 +1,3 @@
+{ "key": "captacao", "setor": "marketing", "fase": 1,
+  "rotas": ["/[lang]", "/[lang]/[lider]"],
+  "emite": [], "ouve": [], "permissoes": [], "agentes": [] }

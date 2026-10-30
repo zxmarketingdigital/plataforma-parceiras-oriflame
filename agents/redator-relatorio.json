@@ -1,0 +1,4 @@
+{ "nome": "redator-relatorio", "setor": "recrutamento", "fase": 1,
+  "descricao": "Escreve a análise do perfil e o plano de 30 dias do Diagnóstico do Empreendedor.",
+  "idiomas": ["pt", "es", "en", "fr"], "ferramentas": [], "requer_aprovacao_humana": false,
+  "timeout_ms": 20000, "fallback": "content/copy/<lang>.json#report_fallback" }

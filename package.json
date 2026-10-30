@@ -1,0 +1,46 @@
+{
+  "name": "plataforma-parceiras",
+  "version": "0.1.0",
+  "private": true,
+  "license": "SEE LICENSE IN LICENSE",
+  "type": "module",
+  "engines": { "node": ">=22.12" },
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start -p 3000",
+    "worker": "tsx worker/index.ts",
+    "migrate": "tsx scripts/migrate.ts",
+    "seed:demo": "tsx scripts/seed-demo.ts",
+    "create-owner": "tsx scripts/create-owner.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "1.3.0",
+    "bcryptjs": "3.0.3",
+    "bullmq": "6.5.1",
+    "drizzle-orm": "0.45.4",
+    "ioredis": "6.0.0",
+    "libphonenumber-js": "1.13.15",
+    "next": "15.5.28",
+    "nodemailer": "10.3.1",
+    "pdfkit": "0.20.2",
+    "pg": "8.23.1",
+    "react": "19.1.10",
+    "react-dom": "19.1.10",
+    "tsx": "4.23.15",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "3.0.0",
+    "@types/node": "22.20.5",
+    "@types/nodemailer": "8.0.2",
+    "@types/pdfkit": "0.17.7",
+    "@types/pg": "8.23.1",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "typescript": "5.9.3",
+    "vitest": "5.0.5"
+  }
+}

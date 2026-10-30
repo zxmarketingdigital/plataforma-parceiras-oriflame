@@ -1,0 +1,15 @@
+node_modules/
+.next/
+.env
+.env.*
+!.env.example
+data/
+backups/
+*.tsbuildinfo
+next-env.d.ts
+.superpowers/
+scripts/demo-credentials.md
+.localdev/
+.vitest/
+*.OK
+_night-artifacts/codex-ui.log

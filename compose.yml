@@ -1,0 +1,54 @@
+# Produção na VPS do aluno. Configurar .env (ver .env.example) e correr ./install.sh
+name: parceiras
+
+x-env: &env
+  env_file: .env
+  restart: unless-stopped
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    <<: *env
+    environment: { POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}", POSTGRES_DB: plataforma }
+    volumes: [pg:/var/lib/postgresql/data]
+    healthcheck: { test: ["CMD-SHELL", "pg_isready -U postgres -d plataforma"], interval: 5s, retries: 20 }
+
+  redis:
+    image: redis:7-alpine
+    <<: *env
+    command: redis-server --appendonly yes
+    volumes: [redis:/data]
+    healthcheck: { test: ["CMD", "redis-cli", "ping"], interval: 5s, retries: 20 }
+
+  migrate:
+    build: { context: ., dockerfile: docker/Dockerfile, target: worker }
+    env_file: .env
+    command: npm run migrate
+    depends_on: { postgres: { condition: service_healthy } }
+
+  app:
+    build: { context: ., dockerfile: docker/Dockerfile, target: app }
+    <<: *env
+    environment: { PDF_DIR: /app/data/pdf, HOSTNAME: 0.0.0.0, PORT: "3000" }
+    volumes: [data:/app/data]
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+      redis: { condition: service_healthy }
+
+  worker:
+    build: { context: ., dockerfile: docker/Dockerfile, target: worker }
+    <<: *env
+    environment: { PDF_DIR: /app/data/pdf }
+    volumes: [data:/app/data]
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+      redis: { condition: service_healthy }
+
+  caddy:
+    image: caddy:2.8-alpine
+    <<: *env
+    ports: ["80:80", "443:443"]
+    volumes: [./docker/Caddyfile:/etc/caddy/Caddyfile:ro, caddy_data:/data, caddy_config:/config]
+    depends_on: [app]
+
+volumes: { pg: {}, redis: {}, data: {}, caddy_data: {}, caddy_config: {} }

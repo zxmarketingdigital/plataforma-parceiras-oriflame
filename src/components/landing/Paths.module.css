@@ -1,0 +1,135 @@
+.section {
+  width: min(100%, var(--content-width));
+  margin: 0 auto;
+  padding: var(--space-10) var(--gutter);
+}
+
+.intro {
+  max-width: 43rem;
+}
+
+.kicker {
+  margin: 0 0 var(--space-3);
+  color: var(--color-dark);
+  font-size: 0.76rem;
+  font-weight: 750;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.intro h2,
+.card h3 {
+  font-family: var(--font-editorial);
+  font-weight: 560;
+  letter-spacing: -0.045em;
+}
+
+.intro h2 {
+  margin: 0;
+  font-size: clamp(2.2rem, 4.5vw, 4rem);
+  line-height: 0.97;
+}
+
+.intro > p:last-child {
+  margin: var(--space-5) 0 0;
+  color: var(--color-muted);
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-5);
+  margin-top: var(--space-8);
+}
+
+.card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: var(--space-6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: rgb(255 255 255 / 0.54);
+}
+
+.figure {
+  position: relative;
+  display: grid;
+  width: 4.5rem;
+  height: 4.5rem;
+  place-items: center;
+  margin-bottom: var(--space-7);
+  border-radius: 48% 52% 57% 43%;
+  background: #e3eddc;
+}
+
+.figure span {
+  position: absolute;
+  display: block;
+  border: 2px solid var(--color-dark);
+}
+
+.figure span:nth-child(1) {
+  width: 1.9rem;
+  height: 2.55rem;
+  border-radius: 0.9rem 0.9rem 1.1rem 1.1rem;
+}
+
+.figure span:nth-child(2) {
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  transform: translate(1.2rem, -1rem);
+}
+
+.figure span:nth-child(3) {
+  width: 1.2rem;
+  height: 0.65rem;
+  border-radius: 50%;
+  transform: translate(-1.15rem, 1.15rem) rotate(-30deg);
+}
+
+.card[data-path="poupar"] .figure {
+  background: #efe3cc;
+}
+
+.card[data-path="negocio"] .figure {
+  background: #d9e8e1;
+}
+
+.card h3 {
+  margin: 0;
+  font-size: 1.85rem;
+  line-height: 1;
+}
+
+.card p {
+  flex: 1;
+  margin: var(--space-4) 0 var(--space-6);
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+
+.card a {
+  min-height: 2.75rem;
+  color: var(--color-dark);
+  font-size: 0.92rem;
+  font-weight: 750;
+  text-decoration-thickness: 0.1em;
+  text-underline-offset: 0.22em;
+}
+
+@media (max-width: 48rem) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 28rem) {
+  .section {
+    padding-inline: 1rem;
+  }
+}
