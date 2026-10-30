@@ -11,28 +11,28 @@
   width: min(100%, var(--content-width));
   margin: 0 auto;
   padding: clamp(var(--space-7), 6vw, var(--space-10));
-  border: 1px solid rgb(255 255 255 / 0.24);
+  border: 1px solid color-mix(in srgb, var(--color-on-dark) 24%, transparent);
   border-radius: var(--radius-lg);
   background:
-    radial-gradient(circle at 90% 15%, rgb(220 232 211 / 0.22), transparent 16rem),
-    rgb(255 255 255 / 0.03);
-  color: var(--color-surface);
+    radial-gradient(circle at 90% 15%, color-mix(in srgb, var(--color-mint) 22%, transparent), transparent 16rem),
+    color-mix(in srgb, var(--color-surface) 3%, transparent);
+  color: var(--color-on-dark);
 }
 
 .copy h2 {
   max-width: 17ch;
   margin: 0;
-  font-family: var(--font-editorial);
+  font-family: var(--font-heading);
   font-size: clamp(2.2rem, 4.5vw, 4rem);
-  font-weight: 540;
-  letter-spacing: -0.05em;
-  line-height: 0.98;
+  font-weight: var(--weight-heading);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
 }
 
 .copy > p {
   max-width: 42rem;
   margin: var(--space-5) 0 0;
-  color: rgb(255 255 255 / 0.82);
+  color: var(--color-on-dark-muted);
   line-height: 1.65;
 }
 
@@ -55,7 +55,7 @@
   width: 0.6rem;
   height: 0.6rem;
   border-radius: 50%;
-  background: #dce8d3;
+  background: var(--color-mint);
   content: "";
 }
 
@@ -71,19 +71,24 @@
   padding: var(--space-3) var(--space-5);
   border-radius: 999px;
   background: var(--color-surface);
-  color: var(--color-dark);
+  color: var(--color-primary);
   font-weight: 750;
   text-align: center;
   text-decoration: none;
 }
 
 .action a:hover {
-  background: #dce8d3;
+  background: var(--color-mint);
+}
+
+.action a:focus-visible {
+  outline: 3px solid var(--color-focus-on-dark);
+  outline-offset: 3px;
 }
 
 .action p {
   margin: var(--space-4) 0 0;
-  color: rgb(255 255 255 / 0.72);
+  color: var(--color-on-dark-muted);
   font-size: 0.79rem;
   line-height: 1.45;
   text-align: center;

@@ -12,8 +12,8 @@ export function Faq({ copy, leader }: FaqProps) {
   return (
     <section className={styles.section} id="perguntas" aria-labelledby="faq-title">
       <div className={styles.heading}>
-        <p>{copy.lp.nav.faq}</p>
-        <h2 id="faq-title">{copy.lp.faq.title}</h2>
+        <p>{withLeader(copy.lp.nav.faq, leader)}</p>
+        <h2 id="faq-title">{withLeader(copy.lp.faq.title, leader)}</h2>
       </div>
       <div className={styles.items}>
         {copy.lp.faq.items.map((item) => (

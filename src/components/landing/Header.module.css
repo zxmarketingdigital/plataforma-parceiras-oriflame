@@ -16,22 +16,22 @@
 .brand {
   display: grid;
   min-width: 0;
-  color: var(--color-text);
+  color: var(--color-primary);
   text-decoration: none;
 }
 
 .brand span {
-  font-family: var(--font-editorial);
+  font-family: var(--font-heading);
   font-size: 1.25rem;
-  font-weight: 650;
-  letter-spacing: -0.03em;
-  line-height: 1;
+  font-weight: var(--weight-heading);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
 .brand small {
   margin-top: var(--space-1);
   color: var(--color-muted);
-  font-size: 0.69rem;
+  font-size: 0.75rem;
   line-height: 1.2;
 }
 
@@ -56,6 +56,12 @@
 
 .navigation a:hover {
   text-decoration: underline;
+}
+
+.brand:focus-visible,
+.navigation a:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
 }
 
 @media (max-width: 58rem) {

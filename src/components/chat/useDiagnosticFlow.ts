@@ -122,7 +122,7 @@ function isDiagnosticResult(value: unknown): value is DiagnosticResult {
   if (!Array.isArray(value.assumptions) || !value.assumptions.every((assumption) => typeof assumption === "string")) return false;
   if (typeof value.profile !== "string" || typeof value.profile_label !== "string" || typeof value.analysis !== "string") return false;
   if (!Array.isArray(value.plan30) || !value.plan30.every(isResultPlanWeek)) return false;
-  if (!isRecord(value.cta) || !isRecord(value.cta.leader) || typeof value.cta.leader.name !== "string") return false;
+  if (!isRecord(value.cta) || !isRecord(value.cta.leader) || typeof value.cta.leader.name !== "string" || typeof value.cta.leader.brand_name !== "string") return false;
   return (typeof value.cta.signup_url === "undefined" || typeof value.cta.signup_url === "string")
     && (typeof value.cta.whatsapp_url === "undefined" || value.cta.whatsapp_url === null || typeof value.cta.whatsapp_url === "string")
     && (typeof value.disclaimer === "undefined" || typeof value.disclaimer === "string")

@@ -5,7 +5,7 @@
   padding: 0.2rem;
   border: 1px solid var(--color-border);
   border-radius: 999px;
-  background: rgb(255 255 255 / 0.55);
+  background: var(--color-surface);
 }
 
 .switcher a {
@@ -14,8 +14,8 @@
   min-height: 2.25rem;
   place-items: center;
   border-radius: 999px;
-  color: var(--color-dark);
-  font-size: 0.69rem;
+  color: var(--color-primary);
+  font-size: 0.75rem;
   font-weight: 750;
   letter-spacing: 0.06em;
   text-decoration: none;
@@ -23,6 +23,11 @@
 
 .switcher a:hover,
 .switcher .active {
-  background: var(--color-dark);
-  color: var(--color-surface);
+  background: var(--color-primary);
+  color: var(--color-on-dark);
+}
+
+.switcher a:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
 }

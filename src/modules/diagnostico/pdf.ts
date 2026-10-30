@@ -1,31 +1,40 @@
 // Relatório em PDF do Diagnóstico (pdfkit, sem Chromium). Todo o texto vem da copy da língua do diagnóstico;
 // os números vêm do motor (já gravados em scenarios). Fontes padrão (Helvetica, WinAnsi) cobrem PT/ES/FR/EN.
 import PDFDocument from "pdfkit";
+import { brandVars } from "@/core/brand";
 import { fill, getCopy } from "@/core/i18n";
 import type { ScenarioKey } from "./engine";
 import type { WorkerContext } from "./service";
 
-const INK = "#1B1B1B";
-const SAGE = "#5E7A5A";
-const SAGE_SOFT = "#EEF2ED";
-const MUTED = "#6B6B6B";
-const LINE = "#D9DED7";
+const INK = "#333333";
+const SAGE = "#004E42";
+const SAGE_SOFT = "#E1F4EB";
+const MUTED = "#595959";
+const LINE = "#DCDCDC";
 const WHITE = "#FFFFFF";
 
 const MARGIN = 48;
 const SCENARIO_ORDER: ScenarioKey[] = ["conservador", "provavel", "ambicioso"];
 
-/** Helvetica só tem WinAnsi: espaços finos/estreitos que o Intl mete (ex.: fr) ficam como lixo, por isso viram espaço normal. */
+// Mapa do pdfkit para os códigos 0x80-0x9F do WinAnsi (o resto de 0x20-0xFF coincide com Unicode).
+const WIN_ANSI_EXTRA = new Set([
+  0x20ac, 0x201a, 0x0192, 0x201e, 0x2026, 0x2020, 0x2021, 0x02c6, 0x2030, 0x0160, 0x2039, 0x0152, 0x017d,
+  0x2018, 0x2019, 0x201c, 0x201d, 0x2022, 0x2013, 0x2014, 0x02dc, 0x2122, 0x0161, 0x203a, 0x0153, 0x017e, 0x0178,
+]);
+
+/** Helvetica só tem WinAnsi: caracteres fora do mapa são substituídos para o PDF não falhar. */
 function winAnsiSafe(text: string): string {
-  return (
-    text
-      .replace(/[\u202f\u2009\u2007\u2008]/g, " ")
-      .replace(/\u00a0/g, " ")
-      .replace(/[\u2010\u2011\u2212]/g, "-")
-      // O visualizador (macOS/poppler) desenha o € da Helvetica mais largo do que o pdfkit mede e come o espaço seguinte
-      // ("55 €por mês"). Um segundo espaço depois do € compensa; sem texto a seguir não se nota.
-      .replace(/\u20ac (?=\S)/g, "\u20ac  ")
-  );
+  const normalized = text.normalize("NFC")
+    .replace(/[\u202f\u2009\u2007\u2008]/g, " ")
+    .replace(/\u00a0/g, " ")
+    .replace(/[\u2010\u2011\u2212]/g, "-")
+    // O visualizador desenha o € mais largo do que o pdfkit mede.
+    .replace(/\u20ac (?=\S)/g, "\u20ac  ");
+  return Array.from(normalized, (character) => {
+    const codePoint = character.codePointAt(0) ?? 0;
+    if (codePoint === 9 || codePoint === 10 || codePoint === 13 || (codePoint >= 0x20 && codePoint <= 0x7e) || (codePoint >= 0xa0 && codePoint <= 0xff) || WIN_ANSI_EXTRA.has(codePoint)) return character;
+    return "?";
+  }).join("");
 }
 
 // A copy é de Portugal (e Reino Unido para inglês): "pt" a secas daria formato do Brasil.
@@ -42,14 +51,18 @@ export function renderReportPdf(ctx: WorkerContext): Promise<Buffer> {
       const copy = getCopy(ctx.lang);
       const r = copy.chat.result;
       const brand = copy.brand;
-      const leaderName = ctx.leader.name?.trim() || brand.name;
+      const brandName = ctx.leader.brand_name || brand.name;
+      const brandTagline = ctx.leader.brand_tagline || brand.tagline;
+      const vars = brandVars(ctx.leader.name, brandName);
+      const copyText = (text: string, extra: Record<string, string> = {}) => winAnsiSafe(fill(text, { ...vars, ...extra }));
+      const leaderName = ctx.leader.name?.trim() || brandName;
       const { currency, is_example } = ctx.scenarios;
 
       const doc = new PDFDocument({
         size: "A4",
         margins: { top: MARGIN, bottom: 64, left: MARGIN, right: MARGIN },
         bufferPages: true,
-        info: { Title: `${brand.name} · ${ctx.contactName}`, Author: brand.name },
+        info: { Title: winAnsiSafe(`${brandName} · ${ctx.contactName}`), Author: winAnsiSafe(brandName) },
       });
       const chunks: Buffer[] = [];
       doc.on("data", (c: Buffer) => chunks.push(c));
@@ -75,15 +88,15 @@ export function renderReportPdf(ctx: WorkerContext): Promise<Buffer> {
       // ---- Cabeçalho: marca
       doc.rect(0, 0, pageW, 8).fill(SAGE);
       doc.y = MARGIN;
-      doc.font("Helvetica-Bold").fontSize(20).fillColor(SAGE).text(winAnsiSafe(brand.name), left, doc.y, { width: contentW });
-      doc.font("Helvetica").fontSize(10).fillColor(MUTED).text(winAnsiSafe(brand.tagline), left, doc.y + 1, { width: contentW });
+      doc.font("Helvetica-Bold").fontSize(20).fillColor(SAGE).text(winAnsiSafe(brandName), left, doc.y, { width: contentW });
+      doc.font("Helvetica").fontSize(10).fillColor(MUTED).text(winAnsiSafe(brandTagline), left, doc.y + 1, { width: contentW });
 
       // ---- Pessoa e perfil
       doc.moveDown(1.2);
       doc.font("Helvetica-Bold").fontSize(22).fillColor(INK).text(winAnsiSafe(ctx.contactName), left, doc.y, { width: contentW });
-      doc.font("Helvetica").fontSize(12).fillColor(SAGE).text(winAnsiSafe(copy.report_fallback.perfis[ctx.profile].label), left, doc.y + 2, { width: contentW });
+      doc.font("Helvetica").fontSize(12).fillColor(SAGE).text(copyText(copy.report_fallback.perfis[ctx.profile].label), left, doc.y + 2, { width: contentW });
       doc.moveDown(0.8);
-      doc.font("Helvetica-Oblique").fontSize(9.5).fillColor(MUTED).text(winAnsiSafe(r.intro), left, doc.y, { width: contentW });
+      doc.font("Helvetica-Oblique").fontSize(9.5).fillColor(MUTED).text(copyText(r.intro), left, doc.y, { width: contentW });
 
       // ---- Cenários (o provável em destaque)
       doc.moveDown(0.8);
@@ -97,29 +110,29 @@ export function renderReportPdf(ctx: WorkerContext): Promise<Buffer> {
         const x = left + i * (cardW + gap);
         const hi = key === "provavel";
         const fg = hi ? WHITE : INK;
-        const sub = hi ? "#E3EBE1" : MUTED;
+        const sub = hi ? "#E1F4EB" : MUTED;
         doc.save();
         if (hi) doc.roundedRect(x, top, cardW, cardH, 6).fill(SAGE);
         else doc.roundedRect(x, top, cardW, cardH, 6).lineWidth(1).fillAndStroke(SAGE_SOFT, LINE);
         doc.restore();
         const pad = 10;
         const w = cardW - pad * 2;
-        doc.font("Helvetica-Bold").fontSize(10).fillColor(hi ? WHITE : SAGE).text(winAnsiSafe(r.scenarios[key]).toUpperCase(), x + pad, top + 12, { width: w });
+        doc.font("Helvetica-Bold").fontSize(10).fillColor(hi ? WHITE : SAGE).text(copyText(r.scenarios[key]).toUpperCase(), x + pad, top + 12, { width: w });
         doc.font("Helvetica-Bold").fontSize(20).fillColor(fg).text(money(sc.avg_monthly, currency, ctx.lang), x + pad, top + 32, { width: w });
-        doc.font("Helvetica").fontSize(8.5).fillColor(sub).text(winAnsiSafe(`${r.per_month} · ${r.avg_label}`), x + pad, doc.y + 1, { width: w });
-        doc.font("Helvetica").fontSize(8.5).fillColor(sub).text(winAnsiSafe(r.month12_label), x + pad, top + 92, { width: w });
-        doc.font("Helvetica-Bold").fontSize(13).fillColor(fg).text(winAnsiSafe(`${money(sc.month12, currency, ctx.lang)} ${r.per_month}`), x + pad, doc.y + 1, { width: w });
-        doc.font("Helvetica").fontSize(8).fillColor(sub).text(winAnsiSafe(`${r.rank_label}: ${sc.rank_label}`), x + pad, doc.y + 4, { width: w });
+        doc.font("Helvetica").fontSize(8.5).fillColor(sub).text(copyText(`${r.per_month} · ${r.avg_label}`), x + pad, doc.y + 1, { width: w });
+        doc.font("Helvetica").fontSize(8.5).fillColor(sub).text(copyText(r.month12_label), x + pad, top + 92, { width: w });
+        doc.font("Helvetica-Bold").fontSize(13).fillColor(fg).text(copyText(`${money(sc.month12, currency, ctx.lang)} ${r.per_month}`), x + pad, doc.y + 1, { width: w });
+        doc.font("Helvetica").fontSize(8).fillColor(sub).text(copyText(`${r.rank_label}: ${sc.rank_label}`), x + pad, doc.y + 4, { width: w });
       });
       doc.y = top + cardH + 6;
 
       // ---- Pressupostos
-      heading(r.assumptions_title);
+      heading(copyText(r.assumptions_title));
       for (const a of ctx.assumptions) {
         ensure(24);
         const y = doc.y;
         doc.circle(left + 3, y + 5, 1.6).fill(SAGE);
-        doc.font("Helvetica").fontSize(9.5).fillColor(INK).text(winAnsiSafe(a), left + 14, y, { width: contentW - 14 });
+        doc.font("Helvetica").fontSize(9.5).fillColor(INK).text(winAnsiSafe(fill(a, vars)), left + 14, y, { width: contentW - 14 });
         doc.moveDown(0.25);
       }
 
@@ -127,7 +140,7 @@ export function renderReportPdf(ctx: WorkerContext): Promise<Buffer> {
       doc.moveDown(0.6);
       if (is_example) {
         const countryName = (copy.chat.questions.pais.options as Record<string, string>)[ctx.answers.pais] ?? ctx.answers.pais;
-        const notice = winAnsiSafe(fill(r.example_table_notice, { country: countryName }));
+        const notice = copyText(r.example_table_notice, { country: countryName });
         doc.font("Helvetica-Bold").fontSize(9.5);
         const h = doc.heightOfString(notice, { width: contentW - 20 }) + 16;
         ensure(h + 4);
@@ -137,26 +150,26 @@ export function renderReportPdf(ctx: WorkerContext): Promise<Buffer> {
         doc.font("Helvetica-Bold").fontSize(9.5).fillColor(INK).text(notice, left + 14, y + 8, { width: contentW - 24 });
         doc.y = y + h + 8;
       }
-      doc.font("Helvetica-Oblique").fontSize(9).fillColor(MUTED).text(winAnsiSafe(r.disclaimer), left, doc.y, { width: contentW });
+      doc.font("Helvetica-Oblique").fontSize(9).fillColor(MUTED).text(copyText(r.disclaimer), left, doc.y, { width: contentW });
 
       // ---- Análise
-      heading(r.analysis_title);
+      heading(copyText(r.analysis_title));
       for (const para of ctx.analysis.split(/\n{1,}/).map((p) => p.trim()).filter(Boolean)) {
-        doc.font("Helvetica").fontSize(10.5).fillColor(INK).text(winAnsiSafe(para), left, doc.y, { width: contentW, lineGap: 2, align: "left" });
+        doc.font("Helvetica").fontSize(10.5).fillColor(INK).text(winAnsiSafe(fill(para, vars)), left, doc.y, { width: contentW, lineGap: 2, align: "left" });
         doc.moveDown(0.5);
       }
 
       // ---- Plano de 30 dias, por semana
-      heading(r.plan_title);
+      heading(copyText(r.plan_title));
       for (const wk of ctx.plan30) {
-        const actions = wk.actions.map((a) => winAnsiSafe(a));
+        const actions = wk.actions.map((a) => winAnsiSafe(fill(a, vars)));
         doc.font("Helvetica").fontSize(10);
         const need = 24 + actions.reduce((s, a) => s + doc.heightOfString(a, { width: contentW - 30 }) + 3, 0);
         ensure(need);
         const y = doc.y;
         doc.roundedRect(left, y, 64, 18, 9).fill(SAGE);
-        doc.font("Helvetica-Bold").fontSize(9).fillColor(WHITE).text(winAnsiSafe(`${r.week_label} ${wk.week}`), left, y + 5, { width: 64, align: "center" });
-        doc.font("Helvetica-Bold").fontSize(11).fillColor(INK).text(winAnsiSafe(wk.title), left + 74, y + 3, { width: contentW - 74 });
+        doc.font("Helvetica-Bold").fontSize(9).fillColor(WHITE).text(copyText(`${r.week_label} ${wk.week}`), left, y + 5, { width: 64, align: "center" });
+        doc.font("Helvetica-Bold").fontSize(11).fillColor(INK).text(winAnsiSafe(fill(wk.title, vars)), left + 74, y + 3, { width: contentW - 74 });
         doc.y = Math.max(doc.y, y + 18) + 4;
         for (const a of actions) {
           const ay = doc.y;
@@ -172,12 +185,12 @@ export function renderReportPdf(ctx: WorkerContext): Promise<Buffer> {
       heading(leaderName);
       const wa = ctx.leader.whatsapp_e164?.trim();
       if (wa && ctx.cta.whatsapp_url) {
-        doc.font("Helvetica-Bold").fontSize(10.5).fillColor(SAGE).text(winAnsiSafe(fill(r.cta_whatsapp, { leader_name: leaderName })), left, doc.y, { width: contentW, link: ctx.cta.whatsapp_url, underline: true });
+        doc.font("Helvetica-Bold").fontSize(10.5).fillColor(SAGE).text(winAnsiSafe(fill(r.cta_whatsapp, brandVars(leaderName, brandName))), left, doc.y, { width: contentW, link: ctx.cta.whatsapp_url, underline: true });
         doc.font("Helvetica").fontSize(10).fillColor(INK).text(winAnsiSafe(wa), left, doc.y + 1, { width: contentW });
         doc.moveDown(0.6);
       }
-      doc.font("Helvetica-Bold").fontSize(10.5).fillColor(SAGE).text(winAnsiSafe(fill(r.cta_signup, { leader_name: leaderName })), left, doc.y, { width: contentW, link: ctx.cta.signup_url, underline: true });
-      doc.font("Helvetica").fontSize(8.5).fillColor(MUTED).text(ctx.cta.signup_url, left, doc.y + 1, { width: contentW });
+      doc.font("Helvetica-Bold").fontSize(10.5).fillColor(SAGE).text(winAnsiSafe(fill(r.cta_signup, brandVars(leaderName, brandName))), left, doc.y, { width: contentW, link: ctx.cta.signup_url, underline: true });
+      doc.font("Helvetica").fontSize(8.5).fillColor(MUTED).text(winAnsiSafe(ctx.cta.signup_url), left, doc.y + 1, { width: contentW });
 
       // ---- Rodapé em todas as páginas (aviso de parceira independente + número de página)
       const range = doc.bufferedPageRange();
@@ -187,7 +200,7 @@ export function renderReportPdf(ctx: WorkerContext): Promise<Buffer> {
         doc.page.margins.bottom = 0; // sem isto escrever no rodapé abriria uma página nova
         const fy = doc.page.height - 44;
         doc.moveTo(left, fy - 6).lineTo(left + contentW, fy - 6).lineWidth(0.5).strokeColor(LINE).stroke();
-        doc.font("Helvetica").fontSize(7.5).fillColor(MUTED).text(winAnsiSafe(brand.independent_notice), left, fy, { width: contentW - 40, lineBreak: true, height: 26 });
+        doc.font("Helvetica").fontSize(7.5).fillColor(MUTED).text(copyText(brand.independent_notice), left, fy, { width: contentW - 40, lineBreak: true, height: 26 });
         doc.text(`${i - range.start + 1} / ${range.count}`, left + contentW - 36, fy, { width: 36, align: "right", lineBreak: false });
         doc.page.margins.bottom = prevBottom;
       }

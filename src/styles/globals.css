@@ -45,8 +45,16 @@ svg {
   outline-offset: 0.25rem;
 }
 
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  font-weight: var(--weight-heading);
+}
+
 ::selection {
-  background: #cfddc9;
+  background: var(--color-mint);
   color: var(--color-text);
 }
 

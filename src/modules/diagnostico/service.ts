@@ -5,6 +5,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { z } from "zod";
 import { parsePhoneNumberFromString, type CountryCode } from "libphonenumber-js/max";
+import { brandVars, fillDeep, resolveBrandName, resolveBrandTagline } from "@/core/brand";
 import { withSystem, type Db } from "@/core/db/client";
 import { emit } from "@/core/events";
 import { fill, getCopy, isLocale, type Locale } from "@/core/i18n";
@@ -134,7 +135,7 @@ export async function startDiagnostic(input: unknown, ctx: StartCtx): Promise<{ 
 
   return withSystem(async (db) => {
     const owner = await resolveOwner(db, body.leader, ctx.orgId);
-    const consentText = fill(copy.chat.contact_step.consent_text, { leader_name: owner.name });
+    const consentText = fill(copy.chat.contact_step.consent_text, brandVars(owner.name, owner.brand_name));
     const source = utm.utm_source ?? (owner.viaLink ? "link_lider" : "direto");
 
     let contactId: string | undefined;
@@ -198,16 +199,17 @@ async function findContact(db: Db, orgId: string, email: string, e164: string): 
 /** Líder do link (ativo) ou o owner. Link inexistente, desativado ou de assistente cai no owner. */
 async function resolveOwner(db: Db, slug: string | undefined, orgId?: string) {
   if (slug) {
-    const r = await db.query<{ id: string; org_id: string; name: string }>(
-      `SELECT u.id, u.org_id, u.name FROM leader_profiles lp JOIN users u ON u.id = lp.user_id
+    const r = await db.query<{ id: string; org_id: string; name: string; brand_name: unknown; brand_tagline: unknown }>(
+      `SELECT u.id, u.org_id, u.name, lp.brand_name, lp.brand_tagline FROM leader_profiles lp JOIN users u ON u.id = lp.user_id
        WHERE lower(lp.slug) = lower($1) AND u.active AND u.role IN ('owner','leader') AND ($2::uuid IS NULL OR u.org_id = $2)
        LIMIT 1`,
       [slug, orgId ?? null],
     );
     if (r.rows[0]) return { ...r.rows[0], viaLink: true };
   }
-  const o = await db.query<{ id: string; org_id: string; name: string }>(
-    `SELECT id, org_id, name FROM users WHERE role = 'owner' AND active AND ($1::uuid IS NULL OR org_id = $1) ORDER BY created_at LIMIT 1`,
+  const o = await db.query<{ id: string; org_id: string; name: string; brand_name: unknown; brand_tagline: unknown }>(
+    `SELECT u.id, u.org_id, u.name, lp.brand_name, lp.brand_tagline FROM users u LEFT JOIN leader_profiles lp ON lp.user_id = u.id
+       WHERE u.role = 'owner' AND u.active AND ($1::uuid IS NULL OR u.org_id = $1) ORDER BY u.created_at LIMIT 1`,
     [orgId ?? null],
   );
   if (!o.rows[0]) throw new HttpError(503, "not_configured", "Sem owner configurado");
@@ -297,9 +299,9 @@ export async function getPlan(db: Db, orgId: string): Promise<PlanTable> {
 
 // ---------------------------------------------------------------- contexto do relatório (resultado, PDF, e-mail)
 
-export type Cta = { signup_url: string; whatsapp_url: string | null; leader: { name: string; photo_url: string | null } };
+export type Cta = { signup_url: string; whatsapp_url: string | null; leader: { name: string; brand_name: string; photo_url: string | null } };
 
-export type Leader = { name: string; photo_url: string | null; sponsor_code: string | null; whatsapp_e164: string | null };
+export type Leader = { name: string; brand_name: string; brand_tagline: string; photo_url: string | null; sponsor_code: string | null; whatsapp_e164: string | null };
 
 export type ReportContext = {
   id: string;
@@ -331,9 +333,9 @@ export function buildCta(cp: CountryPlan, leader: Leader, contactName: string, l
     : tpl.replace(/[?&][^?&=]*=\{sponsor_code\}/, "").replace("{sponsor_code}", "");
   const digits = leader.whatsapp_e164?.replace(/\D/g, "");
   // Só o primeiro nome vai no texto pré-preenchido do WhatsApp (abre no telemóvel da própria pessoa, não passa por nós).
-  const prefill = fill(copy.chat.result.whatsapp_prefill, { leader_name: leader.name, name: firstName(contactName) });
+  const prefill = fill(copy.chat.result.whatsapp_prefill, { name: firstName(contactName), ...brandVars(leader.name, leader.brand_name) });
   const whatsapp_url = digits ? `https://wa.me/${digits}?text=${encodeURIComponent(prefill)}` : null;
-  return { signup_url, whatsapp_url, leader: { name: leader.name, photo_url: leader.photo_url } };
+  return { signup_url, whatsapp_url, leader: { name: leader.name, brand_name: leader.brand_name, photo_url: leader.photo_url } };
 }
 
 const answersSchema = z.object({
@@ -346,12 +348,19 @@ const answersSchema = z.object({
   consumo: z.enum(ANSWER_VALUES.consumo),
 });
 
-async function leaderOf(db: Db, ownerId: string): Promise<Leader> {
-  const r = await db.query<Leader>(
-    `SELECT u.name, lp.photo_url, lp.sponsor_code, lp.whatsapp_e164 FROM users u LEFT JOIN leader_profiles lp ON lp.user_id = u.id WHERE u.id = $1`,
+async function leaderOf(db: Db, ownerId: string, lang: Locale): Promise<Leader> {
+  const r = await db.query<{ name: string; brand_name: unknown; brand_tagline: unknown; photo_url: string | null; sponsor_code: string | null; whatsapp_e164: string | null }>(
+    `SELECT u.name, lp.brand_name, lp.brand_tagline, lp.photo_url, lp.sponsor_code, lp.whatsapp_e164 FROM users u LEFT JOIN leader_profiles lp ON lp.user_id = u.id WHERE u.id = $1`,
     [ownerId],
   );
-  return r.rows[0] ?? { name: "", photo_url: null, sponsor_code: null, whatsapp_e164: null };
+  const row = r.rows[0];
+  const fallback = getCopy(lang).brand;
+  if (!row) return { name: "", brand_name: fallback.name, brand_tagline: fallback.tagline, photo_url: null, sponsor_code: null, whatsapp_e164: null };
+  return {
+    ...row,
+    brand_name: resolveBrandName(row.name, row.brand_name),
+    brand_tagline: resolveBrandTagline(row.brand_tagline, lang, fallback.tagline),
+  };
 }
 
 function contextFromRow(row: DiagRow, leader: Leader, plan: PlanTable): ReportContext {
@@ -384,12 +393,14 @@ export async function loadReportContext(db: Db, diagnosticId: string): Promise<{
   if (!row) return null;
   if (row.status !== "concluido" || !row.scenarios) return { status: "incompleto" };
   const plan = await getPlan(db, row.org_id);
-  const leader = await leaderOf(db, row.owner_id);
+  const lang: Locale = isLocale(row.locale) ? row.locale : "pt";
+  const leader = await leaderOf(db, row.owner_id, lang);
   return { ...contextFromRow(row, leader, plan), status: "concluido", orgId: row.org_id, contactId: row.contact_id, pdfPath: row.pdf_path };
 }
 
 export function buildResult(c: ReportContext) {
   const copy = getCopy(c.lang);
+  const vars = brandVars(c.leader.name, c.leader.brand_name);
   const countryName = (copy.chat.questions.pais.options as Record<string, string>)[c.answers.pais] ?? c.answers.pais;
   const { conservador, provavel, ambicioso, currency, plan_version, is_example } = c.scenarios;
   return {
@@ -397,13 +408,13 @@ export function buildResult(c: ReportContext) {
     currency,
     plan_version,
     is_example,
-    assumptions: c.assumptions,
-    disclaimer: copy.chat.result.disclaimer,
-    example_notice: is_example ? fill(copy.chat.result.example_table_notice, { country: countryName }) : null,
+    assumptions: fillDeep(c.assumptions, vars),
+    disclaimer: fill(copy.chat.result.disclaimer, vars),
+    example_notice: is_example ? fill(copy.chat.result.example_table_notice, { country: countryName, ...vars }) : null,
     profile: c.profile,
-    profile_label: copy.report_fallback.perfis[c.profile].label,
-    analysis: c.analysis,
-    plan30: c.plan30,
+    profile_label: fill(copy.report_fallback.perfis[c.profile].label, vars),
+    analysis: fill(c.analysis, vars),
+    plan30: fillDeep(c.plan30, vars),
     ai_used: c.ai_used,
     cta: c.cta,
     pdf_status: c.pdfReady ? ("ready" as const) : ("pending" as const),
@@ -438,7 +449,8 @@ export async function finishDiagnostic(id: string, input: unknown, deps: FinishD
   const prep: Prep = await withSystem(async (db) => {
     const row = await loadRow(db, id, token);
     const plan = await getPlan(db, row.org_id);
-    const leader = await leaderOf(db, row.owner_id);
+    const lang: Locale = isLocale(row.locale) ? row.locale : "pt";
+    const leader = await leaderOf(db, row.owner_id, lang);
     if (row.status === "concluido" && row.scenarios) return { done: contextFromRow(row, leader, plan) };
     const parsed = answersSchema.safeParse(row.answers);
     if (!parsed.success) {
@@ -466,10 +478,16 @@ export async function finishDiagnostic(id: string, input: unknown, deps: FinishD
   const lang: Locale = isLocale(row.locale) ? row.locale : "pt";
   const profile = profileOf(answers);
   const scen = computeScenarios(answers, plan);
-  const assumptions = assumptionsFor(answers, lang, plan);
+  const assumptions = fillDeep(assumptionsFor(answers, lang, plan), brandVars(leader.name, leader.brand_name));
 
   // 2. Texto da IA (até 20 s) FORA de qualquer transação, para não segurar uma ligação à BD.
-  const report: Report = await (deps.report ?? generateReport)({ profile, answers, lang, leaderName: leader.name || getCopy(lang).brand.name });
+  const report: Report = await (deps.report ?? generateReport)({
+    profile,
+    answers,
+    lang,
+    leaderName: leader.name || getCopy(lang).brand.name,
+    brandName: leader.brand_name || getCopy(lang).brand.name,
+  });
 
   // 3. Gravar. O UPDATE condicional garante um só vencedor se houver dois pedidos em corrida.
   const claimed = await withSystem(async (db) => {

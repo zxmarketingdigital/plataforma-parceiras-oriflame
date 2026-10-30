@@ -2,6 +2,7 @@
 
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 import { useMemo, useState } from "react";
+import { brandVars } from "@/core/brand";
 import type { ApiOption, ChatCopy, ContactFields, SupportedCountry } from "./types";
 import { fill } from "@/core/i18n";
 import styles from "./DiagnosticChat.module.css";
@@ -9,6 +10,7 @@ import styles from "./DiagnosticChat.module.css";
 interface ContactCardProps {
   copy: ChatCopy["contact_step"];
   leaderName: string;
+  leaderBrandName: string;
   countries: ApiOption[];
   busy?: boolean;
   serverError?: string | null;
@@ -18,7 +20,7 @@ interface ContactCardProps {
 type FieldErrors = Partial<Record<"name" | "email" | "whatsapp" | "country" | "consent", string>>;
 const supportedCountries = new Set<SupportedCountry>(["PT", "ES", "FR", "GB"]);
 
-export function ContactCard({ copy, leaderName, countries, busy = false, serverError, onSubmit }: ContactCardProps) {
+export function ContactCard({ copy, leaderName, leaderBrandName, countries, busy = false, serverError, onSubmit }: ContactCardProps) {
   const initialCountry = useMemo(
     () => (countries.some((country) => country.value === "PT") ? "PT" : (countries[0]?.value ?? "")),
     [countries],
@@ -92,7 +94,7 @@ export function ContactCard({ copy, leaderName, countries, busy = false, serverE
       </label>
       <label className={styles.consent}>
         <input checked={fields.consent} onChange={(event) => update("consent", event.target.checked)} type="checkbox" aria-invalid={Boolean(errors.consent)} />
-        <span>{fill(copy.consent_text, { leader_name: leaderName })}</span>
+        <span>{fill(copy.consent_text, brandVars(leaderName, leaderBrandName))}</span>
       </label>
       {errors.consent ? <small role="alert">{errors.consent}</small> : null}
       <input className={styles.honeypot} value={fields.website} onChange={(event) => update("website", event.target.value)} tabIndex={-1} autoComplete="off" aria-hidden="true" />

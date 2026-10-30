@@ -24,7 +24,7 @@ export function LeaderSection({ copy, leader }: LeaderSectionProps) {
         <span aria-hidden="true" />
       </div>
       <div className={styles.copy}>
-        <p className={styles.eyebrow}>{copy.lp.lider.eyebrow}</p>
+        <p className={styles.eyebrow}>{withLeader(copy.lp.lider.eyebrow, leader)}</p>
         <h2 id="leader-title">{withLeader(copy.lp.lider.title, leader)}</h2>
         <p>{leader.bio ?? withLeader(copy.lp.lider.fallback_bio, leader)}</p>
         {whatsapp ? (

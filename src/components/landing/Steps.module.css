@@ -14,7 +14,7 @@
 .kicker {
   grid-column: 1 / -1;
   margin: 0;
-  color: var(--color-dark);
+  color: var(--color-accent-ink);
   font-size: 0.76rem;
   font-weight: 750;
   letter-spacing: 0.09em;
@@ -23,11 +23,12 @@
 
 .heading h2 {
   margin: 0;
-  font-family: var(--font-editorial);
+  color: var(--color-primary);
+  font-family: var(--font-heading);
   font-size: clamp(2.2rem, 4.5vw, 4rem);
-  font-weight: 560;
-  letter-spacing: -0.05em;
-  line-height: 0.97;
+  font-weight: var(--weight-heading);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
 }
 
 .heading > p:last-child {
@@ -55,16 +56,23 @@
 .steps span {
   display: block;
   margin-bottom: var(--space-8);
-  color: var(--color-accent);
-  font-family: var(--font-editorial);
+  color: var(--color-accent-ink);
+  font-family: var(--font-heading);
   font-size: 1.6rem;
-  font-style: italic;
+  font-style: normal;
+  font-weight: var(--weight-heading);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
 }
 
 .steps h3 {
   margin: 0;
+  color: var(--color-primary);
+  font-family: var(--font-heading);
   font-size: 1rem;
-  line-height: 1.25;
+  font-weight: var(--weight-heading);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
 }
 
 .steps p {

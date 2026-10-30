@@ -12,7 +12,7 @@ export function Steps({ copy, leader }: StepsProps) {
   return (
     <section className={styles.section} id="como-funciona" aria-labelledby="steps-title">
       <div className={styles.heading}>
-        <p className={styles.kicker}>{copy.lp.nav.como_funciona}</p>
+        <p className={styles.kicker}>{withLeader(copy.lp.nav.como_funciona, leader)}</p>
         <h2 id="steps-title">{withLeader(copy.lp.passos.title, leader)}</h2>
         <p>{withLeader(copy.lp.passos.intro, leader)}</p>
       </div>

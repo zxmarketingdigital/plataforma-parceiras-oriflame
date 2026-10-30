@@ -14,7 +14,7 @@
 
 .eyebrow {
   margin: 0 0 var(--space-5);
-  color: var(--color-dark);
+  color: var(--color-accent-ink);
   font-size: 0.78rem;
   font-weight: 750;
   letter-spacing: 0.095em;
@@ -24,17 +24,17 @@
 .hero h1 {
   max-width: 12ch;
   margin: 0;
-  font-family: var(--font-editorial);
+  font-family: var(--font-heading);
   font-size: clamp(3rem, 7vw, 6.15rem);
-  font-weight: 560;
-  letter-spacing: -0.065em;
-  line-height: 0.91;
+  font-weight: var(--weight-heading);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
 }
 
 .hero h1 em {
-  color: var(--color-accent);
-  font-style: italic;
-  font-weight: 500;
+  color: var(--color-primary);
+  font-style: normal;
+  font-weight: var(--weight-heading);
 }
 
 .subtitle {
@@ -66,23 +66,29 @@
 }
 
 .primary {
-  background: var(--color-dark);
-  color: var(--color-surface);
+  background: var(--color-primary);
+  color: var(--color-on-dark);
   box-shadow: var(--shadow-sm);
 }
 
 .primary:hover {
-  background: #23483e;
+  background: var(--color-primary-hover);
 }
 
 .secondary {
-  border: 1px solid var(--color-border);
-  color: var(--color-dark);
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
 }
 
 .secondary:hover {
-  border-color: var(--color-dark);
-  background: rgb(255 255 255 / 0.6);
+  border-color: var(--color-primary-hover);
+  background: var(--color-mint-soft);
+}
+
+.primary:focus-visible,
+.secondary:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
 }
 
 .microcopy {

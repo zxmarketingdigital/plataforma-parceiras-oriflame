@@ -1,5 +1,6 @@
 "use client";
 
+import { brandVars } from "@/core/brand";
 import { fill } from "@/core/i18n";
 import { Bubble } from "./Bubble";
 import { ChipGroup } from "./ChipGroup";
@@ -14,7 +15,7 @@ import styles from "./DiagnosticChat.module.css";
 interface DiagnosticChatProps {
   copy: ChatCopy;
   lang: SupportedLanguage;
-  leader: { name: string; slug: string | null; photo_url?: string | null };
+  leader: { name: string; slug: string | null; brand_name: string; photo_url?: string | null };
   utm?: UTMValues;
 }
 
@@ -32,13 +33,13 @@ export function DiagnosticChat({ copy, lang, leader, utm }: DiagnosticChatProps)
         <header className={styles.header}>
           {leader.photo_url ? <img className={styles.avatar} src={leader.photo_url} alt="" /> : null}
           <div>
-            <h1 id="diagnostic-title">{fill(copy.header.title, { leader_name: leader.name })}</h1>
+            <h1 id="diagnostic-title">{fill(copy.header.title, brandVars(leader.name, leader.brand_name))}</h1>
             <p>{copy.header.status}</p>
           </div>
         </header>
         <Progress completed={flow.completed} />
         <Conversation
-          greeting={copy.greeting.map((message) => fill(message, { leader_name: leader.name }))}
+          greeting={copy.greeting.map((message) => fill(message, brandVars(leader.name, leader.brand_name)))}
           afterContact={afterContact}
           answers={flow.answers}
           reaction={reaction}
@@ -48,6 +49,7 @@ export function DiagnosticChat({ copy, lang, leader, utm }: DiagnosticChatProps)
             <ContactCard
               copy={copy.contact_step}
               leaderName={leader.name}
+              leaderBrandName={leader.brand_name}
               countries={flow.countryQuestion.options}
               busy={flow.busy}
               serverError={flow.retryOperation === "start" ? flow.error : null}

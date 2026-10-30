@@ -1,7 +1,9 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { DiagnosticChat } from "@/components/chat/DiagnosticChat";
 import type { SupportedLanguage, UTMValues } from "@/components/chat/types";
 import { getPublicLeader } from "@/components/landing/public-leader";
+import { brandVars, fillDeep } from "@/core/brand";
 import { getCopy } from "@/core/i18n";
 
 const supportedLanguages = new Set<SupportedLanguage>(["pt", "es", "en", "fr"]);
@@ -20,6 +22,25 @@ function queryUtm(searchParams: Record<string, string | string[] | undefined>): 
   return entries.length > 0 ? Object.fromEntries(entries) as UTMValues : undefined;
 }
 
+async function resolveLeader(lang: SupportedLanguage, query: Record<string, string | string[] | undefined>) {
+  const requestedLeader = await getPublicLeader(lang, firstValue(query.l));
+  return requestedLeader ?? await getPublicLeader(lang);
+}
+
+export async function generateMetadata({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ lang: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}): Promise<Metadata> {
+  const { lang: requestedLanguage } = await params;
+  if (!supportedLanguages.has(requestedLanguage as SupportedLanguage)) return {};
+  const lang = requestedLanguage as SupportedLanguage;
+  const leader = await resolveLeader(lang, await searchParams);
+  return leader ? { title: leader.brand_name, description: leader.brand_tagline } : {};
+}
+
 export default async function DiagnosticPage({
   params,
   searchParams,
@@ -31,11 +52,10 @@ export default async function DiagnosticPage({
   if (!supportedLanguages.has(requestedLanguage as SupportedLanguage)) notFound();
   const lang = requestedLanguage as SupportedLanguage;
   const query = await searchParams;
-  const leaderSlug = firstValue(query.l);
   const copy = getCopy(lang);
-  const requestedLeader = await getPublicLeader(lang, leaderSlug);
-  const leader = requestedLeader ?? await getPublicLeader(lang);
+  const leader = await resolveLeader(lang, query);
   if (!leader) notFound();
 
-  return <DiagnosticChat copy={copy.chat} lang={lang} leader={leader} utm={queryUtm(query)} />;
+  const filledChat = fillDeep(copy.chat, brandVars(leader.name, leader.brand_name));
+  return <DiagnosticChat copy={filledChat} lang={lang} leader={leader} utm={queryUtm(query)} />;
 }

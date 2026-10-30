@@ -1,15 +1,48 @@
+/*
+ * Identidade visual da plataforma, inspirada na paleta pública da Oriflame (medida em pt.oriflame.com).
+ * É a única folha com valores de cor em bruto: o resto do CSS usa só estas custom properties.
+ * Razões de contraste (WCAG 2.x) e pares permitidos: _night-artifacts/identidade/contraste.py.
+ * Nomes antigos mantêm-se (só mudam os valores); os novos acrescentam-se em baixo.
+ */
 :root {
-  --color-bg: #f7f4ee;
-  --color-text: #1b1b1b;
-  --color-accent: #5e7a5a;
-  --color-dark: #2f5d50;
+  /* — Nomes existentes (valores novos) — */
+  --color-bg: #ffffff;
+  --color-text: #333333;
+  --color-accent: #32a58e; /* teal: só decoração e traço (3,04:1 sobre branco); texto de acento usa --color-accent-ink */
+  --color-dark: #004e42; /* verde-escuro: ação, títulos, blocos de destaque */
   --color-surface: #ffffff;
-  --color-border: #d8ddd3;
-  --color-muted: #596356;
-  --color-focus: #1b5e4b;
-  --color-error: #9b2c2c;
-  --color-success: #2f5d50;
-  --color-disabled: #a2aaa0;
+  --color-border: #dcdcdc;
+  --color-muted: #595959;
+  --color-focus: #004e42; /* sobre fundos escuros usar --color-focus-on-dark */
+  --color-error: #c60d22;
+  --color-success: #1b7260;
+  --color-disabled: #9a9a9a;
+
+  /* — Paleta da marca — */
+  --color-primary: #004e42;
+  --color-primary-hover: #003a31;
+  --color-mint: #a8d5ba;
+  --color-mint-soft: #e1f4eb;
+  --color-teal: #32a58e;
+  --color-accent-ink: #1b7260; /* teal escurecido para texto (5,8:1 sobre branco) */
+  --color-highlight: #ffda5e; /* amarelo: destaque pontual e foco sobre verde-escuro */
+  --color-highlight-ink: #333333;
+  --color-link: #2774ae; /* só sobre branco ou cinza-suave (4,4:1 sobre menta-clara não chega a AA) */
+
+  /* — Neutros e estados — */
+  --color-bg-soft: #f5f5f5;
+  --color-border-strong: #767676; /* contorno de campos de formulário (≥ 3:1) */
+  --color-error-soft: #fdecee;
+  --color-error-border: #c60d22;
+  --color-error-ink: #9e0a1a;
+  --color-focus-on-dark: #ffda5e;
+  --color-on-dark: #ffffff;
+  --color-on-dark-muted: #e1f4eb;
+  --color-scrim: rgb(51 51 51 / 0.5);
+
+  --font-heading: var(--font-body), system-ui, sans-serif;
+  --font-editorial: var(--font-heading); /* alias do nome antigo (a fonte editorial saiu) */
+  --weight-heading: 700;
 
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -27,8 +60,10 @@
   --radius-sm: 0.5rem;
   --radius-md: 1rem;
   --radius-lg: 1.5rem;
-  --shadow-sm: 0 0.45rem 1.4rem rgb(27 27 27 / 0.07);
-  --shadow-md: 0 1rem 3rem rgb(27 27 27 / 0.1);
+  --shadow-sm: 0 0.45rem 1.4rem rgb(0 78 66 / 0.08);
+  --shadow-md: 0 1rem 3rem rgb(0 78 66 / 0.12);
+  --shadow-lg: 0 1.4rem 3.75rem rgb(0 78 66 / 0.14);
+  --shadow-dialog: 0 0.9rem 2.75rem rgb(51 51 51 / 0.24);
   --content-width: 73rem;
   --content-narrow: 48rem;
   --gutter: max(1rem, 4vw);

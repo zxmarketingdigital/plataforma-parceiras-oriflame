@@ -1,0 +1,35 @@
+/*
+  Marca da líder (logótipo). Só custom properties de src/styles/tokens.css;
+  o único valor literal é a altura máxima de 48px exigida pelo contrato.
+  O espaço entre o logótipo e o texto vive na margem do próprio logótipo:
+  se a imagem falhar e o componente devolver null, não sobra coluna vazia
+  nem intervalo.
+*/
+.logo {
+  display: block;
+  width: auto;
+  max-width: calc(var(--space-12) * 1.5);
+  max-height: 48px;
+  object-fit: contain;
+}
+
+.withLogo {
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+}
+
+.withLogo .logo {
+  grid-row: 1 / span 2;
+  grid-column: 1;
+  margin-inline-end: var(--space-3);
+}
+
+/* Texto sempre na 2.ª coluna: se o logótipo sair, a 1.ª coluna fica a 0. */
+.withLogo > span,
+.withLogo > small {
+  grid-column: 2;
+}
+
+.footerLogo {
+  margin-bottom: var(--space-3);
+}

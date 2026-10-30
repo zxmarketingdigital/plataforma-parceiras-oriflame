@@ -3,6 +3,7 @@
 // valores monetários, percentagens ou vier fora do formato, usa-se o texto fixo do perfil (content/copy).
 import { z } from "zod";
 import { callModel as realCallModel, agentManifest } from "@/core/agents";
+import { brandVars, resolveBrandName } from "@/core/brand";
 import { fill, getCopy } from "@/core/i18n";
 import type { Answers, Profile } from "./engine";
 
@@ -26,7 +27,7 @@ const LANG_NAME: Record<string, string> = {
   fr: "français de France",
 };
 
-const SYSTEM_PROMPT = `És o redator do Atelier Nórdico, parceira independente Oriflame. Escreves a análise de um "Diagnóstico do Empreendedor" e um plano de 30 dias, a partir das respostas da pessoa.
+function systemPrompt(brandName: string): string { return `És o redator de ${brandName}, parceira independente Oriflame. Escreves a análise de um "Diagnóstico do Empreendedor" e um plano de 30 dias, a partir das respostas da pessoa.
 
 Regras que não podes quebrar:
 - Não inventes nem cites valores de ganhos, preços, percentagens, comissões, prazos para "chegar a" um rendimento, nem comparações com outras pessoas. Não escrevas nenhum número seguido de moeda ou de %. Os números da simulação são mostrados à parte pelo sistema.
@@ -35,12 +36,12 @@ Regras que não podes quebrar:
 - Se a pessoa só quer comprar com desconto (perfil consumidora), não empurres para recrutar nem para ter equipa. Diz que comprar para si é um caminho completo.
 - Tom caloroso, claro e honesto, sem jargão e sem exageros. Trata a pessoa por "você" (ou o equivalente natural no idioma). Não uses o nome da pessoa.
 - Usa só o que as respostas dizem. Não assumas idade, profissão, família nem situação financeira.
-- Podes escrever {leader_name} onde faria sentido referir quem a vai acompanhar; o sistema troca pelo nome verdadeiro.
+- {brand_name} é a marca da líder. Podes escrever {leader_name} onde faria sentido referir quem a vai acompanhar e {brand_name} onde fizer sentido referir a marca; o sistema troca pelos valores verdadeiros.
 
 Formato da resposta: devolve APENAS um objeto JSON válido, sem texto antes nem depois e sem blocos de código, com esta forma:
 {"analysis": "texto corrido de 120 a 220 palavras, em 2 a 3 parágrafos separados por \\n\\n",
  "plan30": [{"week": 1, "title": "título curto", "actions": ["ação concreta", "ação concreta", "ação concreta"]}, ... 4 semanas, week 1 a 4]}
-Cada semana tem 3 ações pequenas e concretas, que a pessoa consegue fazer com o tempo que disse ter.`;
+Cada semana tem 3 ações pequenas e concretas, que a pessoa consegue fazer com o tempo que disse ter.`; }
 
 const planSchema = z
   .array(
@@ -76,9 +77,9 @@ export function parseReport(raw: string): { analysis: string; plan30: Plan30[] }
   return { analysis, plan30: [...plan30].sort((a, b) => a.week - b.week) };
 }
 
-export function fallbackReport(profile: Profile, lang: string, leaderName: string): { analysis: string; plan30: Plan30[] } {
+export function fallbackReport(profile: Profile, lang: string, leaderName: string, brandName = leaderName): { analysis: string; plan30: Plan30[] } {
   const p = getCopy(lang).report_fallback.perfis[profile];
-  const vars = { leader_name: leaderName };
+  const vars = brandVars(leaderName, brandName);
   return {
     analysis: fill(p.analysis, vars),
     plan30: p.plan30.map((w) => ({ week: w.week, title: fill(w.title, vars), actions: w.actions.map((x) => fill(x, vars)) })),
@@ -103,10 +104,11 @@ function answersForPrompt(a: Answers, lang: string): string {
 }
 
 export async function generateReport(
-  input: { profile: Profile; answers: Answers; lang: string; leaderName: string },
+  input: { profile: Profile; answers: Answers; lang: string; leaderName: string; brandName: string },
   deps: { call?: typeof realCallModel } = {},
 ): Promise<Report> {
   const { profile, answers, lang, leaderName } = input;
+  const brandName = resolveBrandName(leaderName, input.brandName);
   const t0 = Date.now();
   const timeoutMs = reportTimeoutMs();
   const user = [
@@ -116,16 +118,16 @@ export async function generateReport(
     answersForPrompt(answers, lang),
   ].join("\n");
 
-  const raw = await (deps.call ?? realCallModel)({ system: SYSTEM_PROMPT, user, timeoutMs, maxTokens: 1800 });
+  const raw = await (deps.call ?? realCallModel)({ system: systemPrompt(brandName), user, timeoutMs, maxTokens: 1800 });
   const ok = raw ? parseReport(raw) : null;
   console.log(`[report] ${ok ? "IA" : raw ? "IA inválida, texto fixo" : "sem IA, texto fixo"} em ${Date.now() - t0} ms (teto ${timeoutMs} ms)`);
   if (ok) {
-    const vars = { leader_name: leaderName };
+    const vars = brandVars(leaderName, brandName);
     return {
       analysis: fill(ok.analysis, vars),
       plan30: ok.plan30.map((w) => ({ week: w.week, title: fill(w.title, vars), actions: w.actions.map((x) => fill(x, vars)) })),
       ai_used: true,
     };
   }
-  return { ...fallbackReport(profile, lang, leaderName), ai_used: false };
+  return { ...fallbackReport(profile, lang, leaderName, brandName), ai_used: false };
 }

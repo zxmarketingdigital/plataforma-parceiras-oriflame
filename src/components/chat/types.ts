@@ -114,7 +114,7 @@ export interface DiagnosticResult {
   cta: {
     signup_url?: string;
     whatsapp_url?: string | null;
-    leader: { name: string; photo_url?: string | null };
+    leader: { name: string; brand_name: string; photo_url?: string | null };
   };
   pdf_status?: string;
 }

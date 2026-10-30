@@ -1,46 +1,46 @@
 {
   "brand": {
-    "name": "Atelier Nórdico",
-    "tagline": "Cosmética nórdica, com alguém que a conhece de perto.",
-    "independent_notice": "Parceira independente Oriflame. Não é a loja oficial da Oriflame: encomendas, preços e condições são os da Oriflame."
+    "name": "Simulação a 12 meses",
+    "tagline": "Veja as contas antes de entrar na Oriflame.",
+    "independent_notice": "Parceira independente Oriflame. Não é o site oficial da Oriflame: encomendas, preços e condições são os da Oriflame."
   },
   "lp": {
     "nav": {
-      "diagnostico": "Diagnóstico",
+      "diagnostico": "Simulação",
       "caminhos": "Caminhos",
       "como_funciona": "Como funciona",
       "faq": "Perguntas",
       "lang_label": "Idioma"
     },
     "hero": {
-      "eyebrow": "Diagnóstico gratuito · com {leader_name}",
-      "title": "Antes de decidir, veja",
-      "title_em": "os seus números.",
-      "subtitle": "Os produtos de beleza de que já gosta, com desconto de parceira, e uma estimativa clara do que isso poderia representar para si. Responda a 7 perguntas e receba uma simulação a 12 meses, um relatório e um plano de 30 dias. Gratuito e sem compromisso.",
-      "cta_primary": "Fazer o diagnóstico",
-      "cta_secondary": "Conhecer os caminhos",
-      "microcopy": "Cerca de 3 minutos · sem compromisso · simulação, não garantia"
+      "eyebrow": "{leader_name} · parceira independente Oriflame",
+      "title": "Paga preço cheio pela cosmética que usa todos os meses?",
+      "title_em": "Veja quanto pouparia como membro Oriflame.",
+      "subtitle": "Em Portugal, registar-se como membro é grátis, sem taxas e sem encomenda mínima. A Oriflame anuncia até 30 % de desconto, que cresce com o valor da encomenda; a simulação conta só 20 %, para não exagerar. Responda a 7 perguntas e receba três cenários a 12 meses com o plano oficial do seu país, um relatório em PDF no seu e-mail e um plano de 30 dias. Grátis.",
+      "cta_primary": "Fazer a simulação grátis",
+      "cta_secondary": "Ver os 3 caminhos",
+      "microcopy": "Cerca de 3 minutos · grátis · estimativa, não promessa de ganhos"
     },
     "caminhos": {
-      "title": "Três caminhos. Escolha o seu.",
-      "intro": "Pode ficar apenas por comprar para si. O resto é opcional e acontece sempre ao seu ritmo.",
+      "title": "Três formas de entrar. Pode ficar pela primeira.",
+      "intro": "Comprar só para si é um caminho completo, não um degrau para outra coisa. Partilhar os produtos e criar equipa são opções, nunca condições.",
       "items": [
         {
           "key": "comprar",
-          "title": "Comprar para si",
-          "text": "Os produtos de que já gosta, com preço de parceira. Sem vender a ninguém e sem obrigação de comprar stock.",
-          "cta": "Ver quanto posso poupar"
+          "title": "Comprar só para si",
+          "text": "A cosmética que já compra, com desconto de membro: em Portugal, a Oriflame anuncia até 30 %, conforme o valor da encomenda, e a simulação conta 20 %. Registo grátis, sem encomenda mínima e sem obrigação de comprar. Encomenda quando quiser, e mais nada.",
+          "cta": "Ver quanto poupo"
         },
         {
           "key": "poupar",
-          "title": "Um extra que cabe nas suas horas",
-          "text": "Partilhe os produtos com quem já conhece, no tempo que tem. Sem metas impostas, e pode parar quando quiser.",
+          "title": "Um extra com quem já compra cosmética",
+          "text": "A sua irmã, a colega do escritório, a vizinha do 3.º esquerdo: já compram cremes e perfumes algures. Se encomendarem consigo, a Oriflame recompensa essas compras. Sem valor mínimo, sem obrigação de comprar, ao seu ritmo, e pode parar quando quiser.",
           "cta": "Calcular o meu extra"
         },
         {
           "key": "negocio",
-          "title": "Construir um negócio próprio",
-          "text": "Uma atividade independente, com equipa própria e acompanhamento de {leader_name} desde o primeiro dia. O arranque é lento, e o diagnóstico mostra-o sem disfarces.",
+          "title": "Um negócio próprio, com equipa",
+          "text": "Uma atividade independente: clientes seus, convidar pessoas e ajudá-las a vender, com {leader_name} ao lado desde o primeiro dia. Os primeiros meses são lentos, e a simulação mostra-o sem maquilhagem.",
           "cta": "Ver o potencial do negócio"
         }
       ]
@@ -51,87 +51,87 @@
       "items": [
         {
           "n": "01",
-          "title": "Faça o diagnóstico",
-          "text": "Sete perguntas sobre o seu tempo, a sua rede e o que procura. Demora cerca de 3 minutos."
+          "title": "Faça a simulação",
+          "text": "Sete perguntas sobre o seu tempo, os seus contactos e o que procura. Demora cerca de 3 minutos."
         },
         {
           "n": "02",
-          "title": "Receba o relatório e o plano",
-          "text": "Três cenários a 12 meses com os pressupostos à vista, um relatório em PDF e um plano de 30 dias."
+          "title": "Receba os números",
+          "text": "Três cenários a 12 meses, do conservador ao ambicioso, com os pressupostos à vista. Um relatório em PDF no seu e-mail e um plano de 30 dias."
         },
         {
           "n": "03",
-          "title": "Converse com {leader_name}, se quiser",
-          "text": "Se tiver dúvidas, fala com uma pessoa real. Se não quiser, o relatório fica consigo na mesma."
+          "title": "Tire dúvidas com {leader_name}, se quiser",
+          "text": "Responde uma pessoa real, que conhece o plano por dentro. Se não quiser falar, o relatório fica consigo na mesma."
         },
         {
           "n": "04",
-          "title": "Registe-se e comece ao seu ritmo",
-          "text": "Se decidir avançar, regista-se com o código de {leader_name} e escolhe por onde começar."
+          "title": "Registe-se com o código de {leader_name}",
+          "text": "Em Portugal, o registo é grátis e sem encomenda mínima. Fica na equipa de {leader_name} e começa pelo caminho que escolheu, nem que seja só comprar."
         }
       ]
     },
     "diagnostico_cta": {
-      "title": "O diagnóstico é seu, mesmo que não avance.",
-      "text": "Uma estimativa feita com o seu tempo, a sua rede e o seu país, e não com os de outra pessoa. Primeiro recebe a informação, depois decide.",
+      "title": "Primeiro as contas. Depois decide.",
+      "text": "Já lhe venderam «rendimento extra» com fotografias de viagens e nem uma conta feita. Aqui é ao contrário: as contas vêm primeiro, feitas com o seu tempo, os seus contactos e o plano oficial do seu país. A decisão fica para depois, e é sua.",
       "bullets": [
-        "Três cenários a 12 meses, com os pressupostos à vista",
-        "Um relatório em PDF enviado para o seu e-mail",
-        "Um plano de 30 dias pensado para o que procura"
+        "Três cenários a 12 meses, incluindo o conservador",
+        "Os pressupostos todos à vista, sem letra pequena",
+        "Relatório em PDF no seu e-mail e um plano de 30 dias"
       ],
-      "cta": "Começar o diagnóstico",
-      "microcopy": "Cerca de 3 minutos · sem compromisso · simulação, não garantia"
+      "cta": "Quero ver os meus números",
+      "microcopy": "Cerca de 3 minutos · grátis · estimativa com o plano oficial, não garantia"
     },
     "lider": {
-      "eyebrow": "Quem está do outro lado",
-      "title": "Olá, sou {leader_name}.",
-      "fallback_bio": "Trabalho com a Oriflame por conta própria, sem falar em nome da marca, e acompanho quem quer conhecer os produtos, pagar menos pelo que já usa ou começar uma atividade própria. Antes de qualquer decisão, prefiro mostrar tudo com clareza: as condições, o que é preciso e o que pode esperar de forma realista. Se ficar com dúvidas depois do diagnóstico, fale comigo. Respondo eu, sem pressa e sem pressão.",
+      "eyebrow": "Quem lhe enviou esta página",
+      "title": "Sou {leader_name}, e quem lhe responde sou eu.",
+      "fallback_bio": "Sou parceira independente Oriflame: trabalho por conta própria e não falo em nome da marca. Vou ser direta: se se registar pelo meu código, fica na minha equipa e eu também beneficio. É por isso que prefiro mostrar as contas antes de qualquer conversa, cenário conservador incluído. Se só quiser comprar para si com desconto, é um caminho completo e ajudo na mesma. Se ficar com dúvidas depois da simulação, escreva-me. Respondo eu, sem pressa e sem insistir.",
       "cta_whatsapp": "Falar com {leader_name} no WhatsApp"
     },
     "faq": {
       "title": "Perguntas frequentes",
       "items": [
         {
-          "q": "Isto tem algum custo?",
-          "a": "O diagnóstico é gratuito. As condições de registo são as da Oriflame e variam de país para país; {leader_name} mostra-lhe tudo antes de se registar, incluindo o que tem custo e o que não tem. Não há obrigação de comprar stock."
+          "q": "Quanto custa entrar e quanto poupo?",
+          "a": "Em Portugal, o registo como membro é grátis, sem taxas e sem encomenda mínima. A Oriflame anuncia até 30 % de desconto, que cresce com o valor da encomenda, e portes grátis em produtos selecionados. A simulação conta só 20 %, para não exagerar. Em Espanha, França e Reino Unido, o desconto que a simulação usa exige uma quota anual, e {leader_name} mostra-lhe as condições do seu país antes de se registar."
         },
         {
-          "q": "Tenho de vender ou de convidar pessoas?",
-          "a": "Não. Pode registar-se só para comprar para si. Partilhar os produtos é uma escolha sua, e convidar outras pessoas é opcional: não é preciso para comprar com desconto nem para vender. No plano da Oriflame, o que gera ganhos são as encomendas de produtos, e não as inscrições de pessoas."
+          "q": "Tenho de vender ou convidar alguém?",
+          "a": "Não. Comprar só para si é um caminho completo. Em Portugal não há valor mínimo de encomenda nem obrigação de comprar: encomenda quando quiser, ao seu ritmo. Partilhar os produtos e convidar pessoas são escolhas suas, e nenhuma delas é precisa para ter o desconto."
         },
         {
-          "q": "Isto é a loja oficial da Oriflame?",
-          "a": "Não. O Atelier Nórdico é uma parceira independente Oriflame. Os produtos, as encomendas, os preços e as condições são os da Oriflame; o acompanhamento é de {leader_name}."
+          "q": "Isto é uma pirâmide?",
+          "a": "É uma pergunta justa. Aqui o centro é comprar produto: o desconto e as recompensas da Oriflame nascem de encomendas de cosmética. Em Portugal o registo é grátis, por isso ninguém ganha dinheiro com a sua inscrição; quem cria equipa ganha quando as pessoas da equipa compram. A simulação mostra os pressupostos por inteiro, para que veja de onde vem cada número."
         },
         {
-          "q": "Os números do diagnóstico são uma garantia?",
-          "a": "Não, e é por isso que lhes chamamos simulação. Resultam das suas respostas, do desconto de membro que a Oriflame publica para o seu país e de pressupostos que mostramos por inteiro. Os bónus de equipa ficam de fora do cálculo. Os resultados reais dependem do seu tempo e das suas vendas."
+          "q": "O que ganha {leader_name} se eu me registar?",
+          "a": "Se se registar pelo código de {leader_name}, fica na equipa de {leader_name}, que também beneficia com as suas compras, nas regras do plano da Oriflame. Os preços e as condições são os da Oriflame, e {leader_name} não lhe cobra nada por acompanhar."
         },
         {
-          "q": "Quanto tempo exige?",
-          "a": "O tempo que tiver. O diagnóstico pergunta-lhe quantas horas por semana pode dedicar e ajusta os cenários a isso. Quem só quer comprar não precisa de dedicar tempo nenhum."
+          "q": "Os números são garantidos?",
+          "a": "Não. São uma estimativa feita com as suas respostas e com o plano oficial que a Oriflame publica para o seu país (outubro de 2026), com os pressupostos à vista. Os bónus de equipa ficam de fora, porque a Oriflame não publica a tabela de escalões. O resultado real depende do seu tempo e das suas vendas. A simulação cobre Portugal, Espanha, França e Reino Unido."
+        },
+        {
+          "q": "Isto é o site oficial da Oriflame?",
+          "a": "Não. Esta página pertence a {brand_name}, parceira independente Oriflame, que trabalha por conta própria. Os produtos, as encomendas, os preços e as condições são os da Oriflame."
+        },
+        {
+          "q": "É um emprego?",
+          "a": "Não. Não é emprego, nem part-time, nem tem salário. É uma atividade independente, com as obrigações fiscais de cada país. Se começar a vender, o melhor é falar com um contabilista sobre o seu caso; {leader_name} explica-lhe os primeiros passos."
         },
         {
           "q": "O que acontece aos meus dados?",
-          "a": "São usados para lhe enviar o relatório e, se pedir, para {leader_name} lhe responder. Não são vendidos nem partilhados para publicidade. Pode pedir para os consultar ou apagar a qualquer momento, nos termos do RGPD."
-        },
-        {
-          "q": "Posso fazer isto a partir de outro país?",
-          "a": "O diagnóstico funciona para Portugal, Espanha, França e Reino Unido. Cada país tem as suas condições, e o cálculo tem em conta o país que indicar."
-        },
-        {
-          "q": "É uma atividade por conta própria?",
-          "a": "Sim. É uma atividade independente, sem contrato de trabalho, com as obrigações fiscais próprias de cada país. {leader_name} explica-lhe os primeiros passos; para o seu caso concreto, o melhor é falar com um contabilista."
+          "a": "Servem para lhe enviar o relatório por e-mail e, se pedir, para {leader_name} lhe responder no WhatsApp. Não são vendidos nem usados para publicidade, e ninguém lhe liga sem pedir. Pode pedir para os consultar ou apagar a qualquer momento, nos termos do RGPD."
         }
       ]
     },
     "cta_final": {
-      "title": "3 minutos para saber, não para decidir.",
-      "text": "Veja os seus números com calma. A decisão continua a ser sua, hoje ou mais tarde.",
-      "cta": "Fazer o diagnóstico"
+      "title": "Daqui a um ano vai ter comprado cosmética na mesma.",
+      "text": "A questão é se a paga a preço cheio. Veja os números com {brand_name}: 3 minutos, grátis, e a decisão continua a ser sua.",
+      "cta": "Ver os meus números"
     },
     "footer": {
-      "legal": "O Atelier Nórdico é uma parceira independente Oriflame e não é a loja oficial da Oriflame. Oriflame é uma marca da Oriflame Cosmetics. As estimativas apresentadas são simulações e não garantia de rendimento.",
+      "legal": "Esta página pertence a uma parceira independente Oriflame e não é o site oficial da Oriflame. Oriflame é uma marca da Oriflame Cosmetics. Os valores apresentados são estimativas de uma simulação com o plano oficial publicado pela Oriflame, e não garantia de rendimento.",
       "privacy": "Política de privacidade",
       "made_by": "Plataforma ZX LAB"
     }
@@ -139,19 +139,19 @@
   "chat": {
     "header": {
       "title": "{leader_name}",
-      "status": "Atelier Nórdico · atividade independente Oriflame"
+      "status": "Parceira independente Oriflame"
     },
     "greeting": [
-      "Olá! Sou {leader_name}, do Atelier Nórdico. Trabalho com a Oriflame por conta própria, não em nome da marca.",
-      "São 7 perguntas rápidas, num formulário automático. No fim recebe uma simulação a 12 meses, um relatório em PDF e um plano de 30 dias. Demora cerca de 3 minutos; se depois quiser falar, respondo eu."
+      "Olá! Sou {leader_name}, parceira independente Oriflame. Trabalho por conta própria, não em nome da marca.",
+      "São 7 perguntas rápidas, num formulário automático. No fim vê três cenários a 12 meses e recebe um relatório em PDF com um plano de 30 dias. Demora cerca de 3 minutos; se depois quiser falar, respondo eu."
     ],
     "contact_step": {
-      "intro": "Antes das perguntas, preciso de saber para onde enviar o relatório. O e-mail serve para lhe enviar o PDF. O WhatsApp serve só para eu lhe responder, se quiser tirar dúvidas comigo: não faço chamadas nem envio mensagens sem me pedir. O país serve para usar as condições certas no cálculo.",
+      "intro": "Antes das perguntas, preciso de alguns dados. O e-mail é para lhe enviar o relatório em PDF. O WhatsApp é para eu lhe poder responder, se quiser tirar dúvidas: não lhe ligo nem lhe escrevo sem me pedir. O país serve para usar as condições certas no cálculo.",
       "name_label": "Nome",
       "email_label": "E-mail (é para aqui que enviamos o relatório)",
       "whatsapp_label": "WhatsApp, com o indicativo do país (ex.: +351)",
       "country_label": "País",
-      "consent_text": "Autorizo o Atelier Nórdico, parceira independente Oriflame, e {leader_name} a tratar o meu nome, e-mail, WhatsApp e respostas para me enviarem o relatório do diagnóstico e, se eu pedir, responderem às minhas dúvidas. Os dados não são vendidos nem usados para publicidade. Posso pedir para os consultar ou apagar a qualquer momento. Li a política de privacidade.",
+      "consent_text": "Autorizo {leader_name}, parceira independente Oriflame, a tratar o meu nome, e-mail, WhatsApp e respostas para me enviar o relatório da simulação e, se eu pedir, responder às minhas dúvidas. Os dados não são vendidos nem usados para publicidade. Posso pedir para os consultar ou apagar a qualquer momento. Li a política de privacidade.",
       "submit": "Continuar",
       "errors": {
         "name": "Indique o seu nome, por favor.",
@@ -175,7 +175,7 @@
       "objetivo": {
         "text": "O que procura neste momento?",
         "options": {
-          "comprar": "Comprar para mim, com desconto",
+          "comprar": "Comprar só para mim, com desconto",
           "rendimento": "Um rendimento extra",
           "negocio": "Construir um negócio"
         }
@@ -223,13 +223,13 @@
     },
     "reactions": [
       "Anotado.",
-      "Faz todo o sentido.",
-      "Muito bem, isso ajuda.",
-      "Muitas pessoas começam exatamente assim."
+      "Faz sentido.",
+      "Isso ajuda nas contas.",
+      "Já falta pouco."
     ],
     "calculating": "A fazer as contas com as suas respostas…",
     "result": {
-      "intro": "Isto é uma simulação, não uma garantia. Mostra o que poderia acontecer com os pressupostos que vê abaixo.",
+      "intro": "Isto é uma estimativa, não uma garantia. Mostra o que poderia acontecer com os pressupostos que vê abaixo, e o cenário conservador conta tanto como os outros.",
       "scenarios": {
         "conservador": "Conservador",
         "provavel": "Provável",
@@ -238,9 +238,9 @@
       "per_month": "por mês",
       "month12_label": "No mês 12",
       "avg_label": "Média mensal no primeiro ano",
-      "rank_label": "Desconto de membro (oficial)",
+      "rank_label": "Desconto de membro usado na simulação",
       "assumptions_title": "Pressupostos usados",
-      "disclaimer": "Simulação feita com as suas respostas e com as condições que a Oriflame publica para o seu país (outubro de 2026): o desconto de membro nas encomendas. Os bónus de equipa não entram no cálculo, porque a Oriflame não publica a tabela de escalões. Não é garantia de rendimento: os resultados reais dependem do seu tempo, das suas vendas e das condições oficiais em vigor.",
+      "disclaimer": "Simulação feita com as suas respostas e com o plano que a Oriflame publica para o seu país (outubro de 2026). Em Portugal, a Oriflame anuncia até 30 % de desconto, que cresce com o valor da encomenda; a simulação usa 20 %, para não exagerar. Os bónus de equipa ficam de fora do cálculo, porque a Oriflame não publica a tabela de escalões. Não é garantia de rendimento: os resultados reais dependem do seu tempo, das suas vendas e das condições oficiais em vigor.",
       "example_table_notice": "Tabela de exemplo: estes cálculos ainda não usam o plano oficial da Oriflame para {country}. Serão atualizados quando o plano oficial chegar.",
       "analysis_title": "A sua análise",
       "plan_title": "O seu plano de 30 dias",
@@ -250,8 +250,8 @@
       "pdf_download": "Descarregar o relatório (PDF)",
       "cta_signup": "Registar-me com o código de {leader_name}",
       "cta_whatsapp": "Falar com {leader_name} no WhatsApp",
-      "whatsapp_prefill": "Olá {leader_name}, é {name}. Fiz o diagnóstico e gostava de tirar algumas dúvidas.",
-      "restart": "Refazer o diagnóstico"
+      "whatsapp_prefill": "Olá {leader_name}, é {name}. Fiz a simulação e gostava de tirar algumas dúvidas.",
+      "restart": "Refazer a simulação"
     },
     "errors": {
       "network": "A ligação falhou por um instante. Verifique a internet e tente de novo.",
@@ -261,8 +261,8 @@
   "report_fallback": {
     "perfis": {
       "consumidora": {
-        "label": "Comprar para si, com desconto",
-        "analysis": "Pelas suas respostas, o que procura é simples: continuar a usar os produtos de que gosta e pagar menos por eles. Esse é um caminho completo por si só, e não um degrau obrigatório para outra coisa. Com o desconto de parceira, parte do que já gasta todos os meses em cosmética ficaria do seu lado, e a simulação mostra o que isso poderia representar ao longo de um ano com o consumo que indicou. Se, com o tempo, uma ou duas pessoas próximas lhe pedirem para encomendar também, pode fazê-lo, e isso poderia ajudar a cobrir parte do seu próprio consumo. Mas não tem de o fazer, nem agora nem mais tarde. Não há metas para cumprir nem obrigação de comprar stock. O mais útil nas primeiras semanas é conhecer o catálogo com calma, testar os produtos que já usa e comparar com o que pagava antes. Os valores reais dependem das condições oficiais da Oriflame no seu país. O próximo passo é uma conversa, não um compromisso.",
+        "label": "Comprar só para si, com desconto",
+        "analysis": "Pelas suas respostas, o que procura é simples: continuar a usar os produtos de que gosta e pagar menos por eles. Esse é um caminho completo por si só, e não um degrau obrigatório para outra coisa. Com o desconto de membro, parte do que já gasta todos os meses em cosmética fica do seu lado. Em Portugal, a Oriflame anuncia até 30 %, que cresce com o valor da encomenda; a simulação usa 20 %, para não exagerar, e mostra o que isso poderia representar ao longo de um ano com o consumo que indicou. Se, com o tempo, uma ou duas pessoas próximas lhe pedirem para encomendar também, pode fazê-lo, e isso poderia ajudar a cobrir parte do seu próprio consumo. Mas não tem de o fazer, nem agora nem mais tarde. Não há encomenda mínima nem obrigação de comprar. O mais útil nas primeiras semanas é conhecer o catálogo com calma, testar os produtos que já usa e comparar com o que pagava antes. Os valores reais dependem das condições oficiais da Oriflame no seu país. O próximo passo é uma conversa, se quiser, e não um compromisso.",
         "plan30": [
           {
             "week": 1,
@@ -270,7 +270,7 @@
             "actions": [
               "Registar-se com o código de {leader_name}",
               "Explorar o catálogo com calma e guardar os favoritos",
-              "Comparar os produtos que já usa com o preço de parceira"
+              "Comparar os produtos que já usa com o preço de membro"
             ]
           },
           {
@@ -295,7 +295,7 @@
             "week": 4,
             "title": "Rever e decidir",
             "actions": [
-              "Comparar o que gastou com o que teria gasto sem desconto",
+              "Comparar o que gastou com o que teria gasto a preço cheio",
               "Escolher os produtos a repor no mês seguinte",
               "Decidir se continua só a comprar ou se quer saber mais"
             ]
@@ -304,7 +304,7 @@
       },
       "rendimento_extra": {
         "label": "Um rendimento extra ao seu ritmo",
-        "analysis": "Indicou que procura um rendimento extra que caiba na vida que já tem, e foi com essa medida que esta análise foi feita. As horas por semana e a rede de contactos que referiu são o que mais pesa no resultado, mais do que o entusiasmo ou o exemplo de outra pessoa. Por isso, use o cenário provável como referência e o conservador como um ponto de partida realista. A alavanca principal não está em procurar sempre novos clientes, mas em ter clientes que voltam a encomendar. Duas ou três pessoas satisfeitas e bem acompanhadas valem mais do que muitas conversas soltas. Nos primeiros meses, o normal é avançar com calma, enquanto conhece os produtos e cria uma rotina curta e regular. Partilhar é sempre escolha sua, com quem já conhece e ao seu ritmo, e pode parar quando quiser. Lembre-se de que isto é uma simulação: os resultados reais dependem do seu tempo, das suas vendas e das condições oficiais do seu país. O próximo passo é uma conversa, não um compromisso.",
+        "analysis": "Indicou que procura um rendimento extra que caiba na vida que já tem, e foi com essa medida que esta análise foi feita. As horas por semana e os contactos que referiu são o que mais pesa no resultado, mais do que o entusiasmo ou o exemplo de outra pessoa. Por isso, use o cenário provável como referência e o conservador como um ponto de partida realista. A alavanca principal não está em procurar sempre novos clientes, mas em ter clientes que voltam a encomendar. Duas ou três pessoas satisfeitas e bem acompanhadas valem mais do que muitas conversas soltas. Nos primeiros meses, o normal é avançar devagar, enquanto conhece os produtos e cria uma rotina curta e regular. Partilhar é sempre escolha sua, com quem já conhece e ao seu ritmo, e pode parar quando quiser. Lembre-se de que isto é uma estimativa: os resultados reais dependem do seu tempo, das suas vendas e das condições oficiais do seu país. O próximo passo é uma conversa, se quiser, e não um compromisso.",
         "plan30": [
           {
             "week": 1,
@@ -346,7 +346,7 @@
       },
       "construtora_negocio": {
         "label": "Construir um negócio próprio",
-        "analysis": "Escolheu o caminho de construir um negócio, e a primeira coisa a saber é onde está o potencial: menos nas suas próprias vendas e mais em formar uma equipa, ou seja, em convidar pessoas e ajudá-las a vender bem. Nem todas as pessoas que convidar vão querer vender, e isso é normal. A sua experiência em vendas e o uso que faz das redes sociais podem acelerar esse processo, mas não o substituem. Convém ser claro sobre o arranque: os primeiros meses costumam ser lentos, porque está a criar uma base de clientes, a aprender o plano e a acompanhar as primeiras pessoas. A simulação reflete essa rampa, e o cenário ambicioso só faz sentido se a equipa crescer de forma consistente. Construir uma equipa é um trabalho de acompanhamento, não de convencimento: as pessoas certas ficam quando veem método e honestidade. {leader_name} acompanha esse caminho desde o primeiro dia. Os resultados reais dependem do seu trabalho e das condições oficiais do seu país. O próximo passo é uma conversa, não um compromisso.",
+        "analysis": "Escolheu o caminho de construir um negócio, e a primeira coisa a saber é onde está o potencial: menos nas suas próprias vendas e mais em formar uma equipa, ou seja, em convidar pessoas e ajudá-las a vender bem. Nem todas as pessoas que convidar vão querer vender, e isso é normal. A sua experiência em vendas e o uso que faz das redes sociais podem acelerar esse processo, mas não o substituem. Convém ser claro sobre o arranque: os primeiros meses costumam ser lentos, porque está a criar uma base de clientes, a aprender o plano e a acompanhar as primeiras pessoas. A simulação reflete essa rampa, e o cenário ambicioso só faz sentido se a equipa crescer de forma consistente. Os bónus de equipa da Oriflame ficam de fora destas contas, porque a tabela de escalões não é publicada. Construir uma equipa é um trabalho de acompanhamento, não de convencimento: as pessoas certas ficam quando veem método e honestidade. {leader_name} acompanha esse caminho desde o primeiro dia. Os resultados reais dependem do seu trabalho e das condições oficiais do seu país. O próximo passo é uma conversa, se quiser, e não um compromisso.",
         "plan30": [
           {
             "week": 1,
@@ -363,7 +363,7 @@
             "actions": [
               "Organizar a presença nas redes sociais, sem promessas de rendimento",
               "Fazer os primeiros convites a quem já mostrou interesse",
-              "Sugerir o diagnóstico a quem quer decidir com informação"
+              "Sugerir a simulação a quem quer decidir com números"
             ]
           },
           {
@@ -388,8 +388,8 @@
       }
     },
     "email": {
-      "subject": "{name}, o seu relatório do diagnóstico",
-      "body": "Olá {name},\n\nEscreve-lhe {leader_name}, do Atelier Nórdico. Trabalho com a Oriflame por conta própria. Agradeço-lhe ter feito o diagnóstico.\n\nJunto envio o seu relatório em PDF, com os três cenários a 12 meses, os pressupostos usados em cada um e o seu plano de 30 dias. Lembre-se de que é uma simulação, não uma garantia: usa o desconto de membro que a Oriflame publica para o seu país e deixa os bónus de equipa de fora.\n\nSe quiser tirar dúvidas, basta responder a este e-mail ou falar comigo no WhatsApp. Se não quiser, não precisa de fazer nada.\n\nPode pedir, a qualquer momento, para consultar ou apagar os seus dados, com uma simples resposta a este e-mail.\n\nUm abraço,\n{leader_name}\nAtelier Nórdico · atividade independente Oriflame"
+      "subject": "{name}, o relatório da sua simulação",
+      "body": "Olá {name},\n\nAqui é {leader_name}, parceira independente Oriflame. Trabalho por conta própria, não em nome da marca. Obrigada por ter feito a simulação.\n\nJunto envio o seu relatório em PDF, com os três cenários a 12 meses, os pressupostos usados em cada um e o seu plano de 30 dias. É uma estimativa, não uma garantia: usa o desconto de membro do plano oficial do seu país (em Portugal, a Oriflame anuncia até 30 %, e a simulação usa 20 % para não exagerar) e deixa os bónus de equipa de fora.\n\nSe quiser tirar dúvidas, basta responder a este e-mail ou falar comigo no WhatsApp. Se não quiser, não precisa de fazer nada.\n\nPode pedir, a qualquer momento, para consultar ou apagar os seus dados, com uma simples resposta a este e-mail.\n\nUm abraço,\n{leader_name}\nParceira independente Oriflame"
     }
   },
   "assumptions": {
@@ -398,8 +398,8 @@
     "recruits": "Cerca de {x} pessoas na equipa ao fim de 12 meses",
     "retention": "Cerca de {x} dos clientes voltam a encomendar no mês seguinte",
     "ramp": "Os primeiros {x} meses servem para arrancar, com menos vendas",
-    "personal": "Consumo próprio de cerca de {x} por mês, com desconto de parceira",
-    "member_discount": "Desconto de membro de {x} em cada encomenda, a condição publicada pela Oriflame para o seu país",
+    "personal": "Consumo próprio de cerca de {x} por mês, com desconto de membro",
+    "member_discount": "Desconto de membro de {x} em cada encomenda. Em Portugal, a Oriflame anuncia até 30 %, conforme o valor da encomenda, e a simulação usa 20 % para não exagerar.",
     "team_excluded": "Os bónus de equipa (Bónus de Equipa, Programa Plus) não entram nesta simulação: a Oriflame não publica a tabela de escalões. Contam só as suas vendas e o seu consumo."
   }
 }

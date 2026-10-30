@@ -1,7 +1,9 @@
 # Contrato da copy (`content/copy/<lang>.json`)
 
 Toda a copy vive aqui. A UI e a API só leem estas chaves; nenhum texto chumbado em componente.
-Placeholders entre chavetas são trocados em runtime: `{leader_name}`, `{name}`, `{currency}`, `{country}`, `{month12}`, `{rank}`.
+Placeholders entre chavetas são trocados em runtime: `{leader_name}`, `{brand_name}`, `{name}`, `{currency}`, `{country}`, `{month12}`, `{rank}`.
+
+`{brand_name}` é a marca da líder (`brand_name` do perfil) ou, quando estiver vazia, o nome dela. Está disponível em todo o texto público: LP, chat, relatório, PDF e e-mail. `brand.name` e `brand.tagline` são o default da plataforma (404, painel e página sem líder). Numa página de líder, o cabeçalho mostra `brand_name` e o slogan dela, com fallback para `brand.tagline`; o rodapé mostra a marca dela e `independent_notice`.
 
 ```jsonc
 {

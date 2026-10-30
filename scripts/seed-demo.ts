@@ -7,6 +7,7 @@ import { chmodSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import bcrypt from "bcryptjs";
 import { Client } from "pg";
+import { brandVars } from "@/core/brand";
 import { fill, getCopy } from "@/core/i18n";
 import { ANSWER_VALUES, assumptionsFor, computeScenarios, profileOf, type Answers } from "@/modules/diagnostico/engine";
 import { fallbackReport } from "@/modules/diagnostico/report";
@@ -82,6 +83,8 @@ interface UserSpec {
   country: "PT" | "ES";
   sponsor: string;
   whatsapp: string;
+  brand_name: string;
+  brand_tagline: Record<"pt" | "es" | "en" | "fr", string>;
   bio: Record<"pt" | "es" | "en" | "fr", string>;
 }
 
@@ -90,12 +93,19 @@ const USERS: UserSpec[] = [
     key: "atelier",
     role: "owner",
     email: "owner@demo.local",
-    name: "Atelier Nórdico",
+    name: "Helena Norte",
     parent: null,
     locale: "pt",
     country: "PT",
     sponsor: "DEMO-1000",
     whatsapp: "+351910000001",
+    brand_name: "Norte Beleza",
+    brand_tagline: {
+      pt: "Cuidado da pele e bem-estar, ao teu ritmo.",
+      es: "Cuidado de la piel y bienestar, a tu ritmo.",
+      en: "Skincare and wellbeing, at your own pace.",
+      fr: "Soin de la peau et bien-être, à votre rythme.",
+    },
     bio: {
       pt: "Parceira independente Oriflame. Acompanho quem quer comprar com desconto ou começar uma atividade própria, com calma e sem pressão.",
       es: "Socia independiente de Oriflame. Acompaño a quien quiere comprar con descuento o empezar una actividad propia, con calma y sin presión.",
@@ -113,6 +123,13 @@ const USERS: UserSpec[] = [
     country: "PT",
     sponsor: "DEMO-1101",
     whatsapp: "+351910000002",
+    brand_name: "Marta Cuida",
+    brand_tagline: {
+      pt: "Cuidados simples para o teu dia a dia.",
+      es: "Cuidados sencillos para tu día a día.",
+      en: "Simple care for your everyday life.",
+      fr: "Des soins simples pour votre quotidien.",
+    },
     bio: {
       pt: "Consultora independente em Lisboa. Gosto de mostrar tudo com clareza antes de qualquer decisão.",
       es: "Consultora independiente en Lisboa. Me gusta explicarlo todo con claridad antes de cualquier decisión.",
@@ -130,6 +147,13 @@ const USERS: UserSpec[] = [
     country: "PT",
     sponsor: "DEMO-1102",
     whatsapp: "+351910000003",
+    brand_name: "Inês Pele Viva",
+    brand_tagline: {
+      pt: "Rotinas de pele e bem-estar sem complicação.",
+      es: "Rutinas de cuidado sin complicaciones.",
+      en: "Straightforward skincare and wellbeing routines.",
+      fr: "Des routines de soin simples et accessibles.",
+    },
     bio: {
       pt: "Comecei há dois anos, em part-time. Ajudo quem tem pouco tempo livre a organizar-se.",
       es: "Empecé hace dos años, a tiempo parcial. Ayudo a quien tiene poco tiempo libre a organizarse.",
@@ -147,6 +171,13 @@ const USERS: UserSpec[] = [
     country: "ES",
     sponsor: "DEMO-2201",
     whatsapp: "+34600000001",
+    brand_name: "Carmen Belleza Consciente",
+    brand_tagline: {
+      pt: "Beleza consciente, com tempo para escolher.",
+      es: "Belleza consciente, con tiempo para elegir.",
+      en: "Conscious beauty, with time to choose.",
+      fr: "Une beauté consciente, le temps de choisir.",
+    },
     bio: {
       pt: "Consultora independente em Valência. Acompanho quem escreve em espanhol ou em português.",
       es: "Consultora independiente en Valencia. Acompaño a quien quiere empezar con cabeza y sin prisas.",
@@ -289,8 +320,8 @@ async function main() {
         [id, orgId, u.email, passwordHash, u.name, u.role, u.parent ? ids.get(u.parent) : null, paths.get(u.key), u.locale, iso(now - (44 - i * 2) * DAY)],
       );
       await client.query(
-        `INSERT INTO leader_profiles (user_id, slug, sponsor_code, whatsapp_e164, photo_url, country, bio) VALUES ($1,$2,$3,$4,$5,$6,$7)`,
-        [id, u.key, u.sponsor, u.whatsapp, `/avatars/${u.key}.svg`, u.country, JSON.stringify(u.bio)],
+        `INSERT INTO leader_profiles (user_id, slug, sponsor_code, whatsapp_e164, photo_url, brand_name, brand_tagline, logo_url, country, bio) VALUES ($1,$2,$3,$4,$5,$6,$7::jsonb,$8,$9,$10)`,
+        [id, u.key, u.sponsor, u.whatsapp, `/avatars/${u.key}.svg`, u.brand_name, JSON.stringify(u.brand_tagline), null, u.country, JSON.stringify(u.bio)],
       );
     }
 
@@ -314,7 +345,7 @@ async function main() {
           : { utm_source: c.source, utm_medium: c.source === "newsletter" ? "email" : "social", utm_campaign: `outono-${pad(int(1, 3), 2)}` };
       const utmSource = (utm as { utm_source?: string }).utm_source;
       const source = utmSource ?? (c.source === "link_lider" ? "link_lider" : "direto");
-      const consentText = fill(copy.chat.contact_step.consent_text, { leader_name: owner.name });
+      const consentText = fill(copy.chat.contact_step.consent_text, brandVars(owner.name, owner.brand_name));
       const contactId = randomUUID();
 
       // Linha do tempo (ms) e atividades, montadas antes de gravar para saber o updated_at.
@@ -333,7 +364,7 @@ async function main() {
         const answers = toAnswers(c);
         const profile = profileOf(answers);
         const scen = computeScenarios(answers);
-        const report = fallbackReport(profile, lang, owner.name);
+        const report = fallbackReport(profile, lang, owner.name, owner.brand_name);
         const token = randomBytes(32).toString("base64url");
         diagId = randomUUID();
         const completedMs = createdMs + int(4, 9) * 60_000 + int(0, 59) * 1000;

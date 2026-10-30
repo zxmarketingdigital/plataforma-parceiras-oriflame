@@ -6,7 +6,7 @@
 
 .heading p {
   margin: 0 0 var(--space-3);
-  color: var(--color-dark);
+  color: var(--color-accent-ink);
   font-size: 0.76rem;
   font-weight: 750;
   letter-spacing: 0.09em;
@@ -15,11 +15,12 @@
 
 .heading h2 {
   margin: 0;
-  font-family: var(--font-editorial);
+  color: var(--color-primary);
+  font-family: var(--font-heading);
   font-size: clamp(2.3rem, 5vw, 4.4rem);
-  font-weight: 550;
-  letter-spacing: -0.055em;
-  line-height: 0.96;
+  font-weight: var(--weight-heading);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
 }
 
 .items {
@@ -37,6 +38,7 @@
   align-items: center;
   padding: var(--space-4) var(--space-7) var(--space-4) 0;
   cursor: pointer;
+  color: var(--color-primary);
   font-weight: 700;
   list-style: none;
 }
@@ -45,12 +47,21 @@
   display: none;
 }
 
+.items summary:hover {
+  color: var(--color-primary-hover);
+}
+
+.items summary:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
 .items summary::after {
   width: 0.62rem;
   height: 0.62rem;
   margin-left: auto;
-  border-right: 2px solid var(--color-dark);
-  border-bottom: 2px solid var(--color-dark);
+  border-right: 2px solid var(--color-primary);
+  border-bottom: 2px solid var(--color-primary);
   content: "";
   transform: rotate(45deg) translateY(-0.15rem);
   transition: transform 160ms ease;

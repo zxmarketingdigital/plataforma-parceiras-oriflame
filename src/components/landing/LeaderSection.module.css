@@ -20,13 +20,13 @@
   width: 7rem;
   height: 7rem;
   border-radius: 50% 42% 52% 48%;
-  background: #efe3cc;
+  background: var(--color-mint);
   transform: translate(2.2rem, 2.2rem);
 }
 
 .eyebrow {
   margin: 0 0 var(--space-3);
-  color: var(--color-dark);
+  color: var(--color-accent-ink);
   font-size: 0.76rem;
   font-weight: 750;
   letter-spacing: 0.09em;
@@ -35,11 +35,12 @@
 
 .copy h2 {
   margin: 0;
-  font-family: var(--font-editorial);
+  color: var(--color-primary);
+  font-family: var(--font-heading);
   font-size: clamp(2.2rem, 4vw, 3.7rem);
-  font-weight: 550;
-  letter-spacing: -0.05em;
-  line-height: 0.98;
+  font-weight: var(--weight-heading);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
 }
 
 .copy > p:not(.eyebrow) {
@@ -53,10 +54,20 @@
   min-height: 2.75rem;
   align-items: center;
   margin-top: var(--space-6);
-  color: var(--color-dark);
+  color: var(--color-primary);
   font-weight: 750;
+  text-decoration-line: underline;
   text-decoration-thickness: 0.1em;
   text-underline-offset: 0.24em;
+}
+
+.copy a:hover {
+  color: var(--color-primary-hover);
+}
+
+.copy a:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
 }
 
 @media (max-width: 40rem) {

@@ -1,5 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { z } from "zod";
+import { BRAND_NAME_MAX, BRAND_TAGLINE_MAX, IMAGE_URL_MAX, IMAGE_URL_MESSAGE, isLeaderImageUrl } from "@/core/brand";
 import { withSystem, withUser, type SessionUser } from "@/core/db/client";
 import { can, HttpError, isAncestorOrSelf } from "@/core/permissions";
 import { forbidden, notFound, RESERVED_SLUGS, SLUG_RE } from "./common";
@@ -21,7 +22,17 @@ interface TeamNode {
   active: boolean;
   locale: string;
   created_at: Date;
-  profile: null | { slug: string; sponsor_code: string | null; whatsapp_e164: string | null; photo_url: string | null; country: string | null; bio: Record<string, string> };
+  profile: null | {
+    slug: string;
+    sponsor_code: string | null;
+    whatsapp_e164: string | null;
+    photo_url: string | null;
+    brand_name: string | null;
+    brand_tagline: Record<string, string>;
+    logo_url: string | null;
+    country: string | null;
+    bio: Record<string, string>;
+  };
   lp_paths: Record<string, string> | null;
   leads_own: number;
   leads_total: number;
@@ -35,7 +46,7 @@ export async function getTeam(user: SessionUser) {
     const users = (
       await db.query(
         `SELECT u.id, u.parent_id, u.name, u.email, u.role, u.active, u.locale, u.created_at,
-                lp.slug, lp.sponsor_code, lp.whatsapp_e164, lp.photo_url, lp.country, lp.bio
+                lp.slug, lp.sponsor_code, lp.whatsapp_e164, lp.photo_url, lp.brand_name, lp.brand_tagline, lp.logo_url, lp.country, lp.bio
            FROM users u LEFT JOIN leader_profiles lp ON lp.user_id = u.id
           WHERE u.org_id = $1 AND u.path <@ $2::ltree
           ORDER BY nlevel(u.path), u.name`,
@@ -59,7 +70,17 @@ export async function getTeam(user: SessionUser) {
         locale: r.locale,
         created_at: r.created_at,
         profile: r.slug
-          ? { slug: r.slug, sponsor_code: r.sponsor_code, whatsapp_e164: r.whatsapp_e164, photo_url: r.photo_url, country: r.country, bio: r.bio ?? {} }
+          ? {
+              slug: r.slug,
+              sponsor_code: r.sponsor_code,
+              whatsapp_e164: r.whatsapp_e164,
+              photo_url: r.photo_url,
+              brand_name: r.brand_name,
+              brand_tagline: r.brand_tagline ?? {},
+              logo_url: r.logo_url,
+              country: r.country,
+              bio: r.bio ?? {},
+            }
           : null,
         lp_paths: r.slug ? Object.fromEntries(LOCALES.map((l) => [l, `/${l}/${r.slug}`])) : null,
         leads_own: counts.get(r.id) ?? 0,
@@ -244,11 +265,7 @@ export async function acceptInvite(body: z.infer<typeof acceptSchema>, passwordH
 
 // ---------------------------------------------------------------- perfil
 
-const photoUrl = z
-  .string()
-  .trim()
-  .max(500)
-  .refine((v) => (/^\/[A-Za-z0-9._\/-]+$/.test(v) && !v.includes("..")) || /^https:\/\/[^\s]+$/.test(v), "Use um caminho local (/avatars/...) ou um URL https");
+const photoUrl = z.string().trim().max(IMAGE_URL_MAX).refine(isLeaderImageUrl, IMAGE_URL_MESSAGE);
 
 export const profileSchema = z
   .object({
@@ -257,6 +274,9 @@ export const profileSchema = z
     whatsapp: z.string().trim().max(40).nullable().optional(),
     sponsor_code: z.string().trim().max(20).regex(/^[A-Za-z0-9-]*$/, "Código inválido").nullable().optional(),
     photo_url: photoUrl.nullable().optional(),
+    brand_name: z.string().trim().max(BRAND_NAME_MAX).transform((v) => (v === "" ? null : v.replace(/\s+/g, " "))).nullable().optional(),
+    brand_tagline: z.partialRecord(z.enum(LOCALES), z.string().trim().max(BRAND_TAGLINE_MAX).transform((v) => v.replace(/\s+/g, " "))).optional(),
+    logo_url: photoUrl.nullable().optional(),
     country: z.string().trim().length(2).toUpperCase().nullable().optional(),
     bio: z.partialRecord(z.enum(LOCALES), z.string().trim().max(800)).optional(),
   })
@@ -266,7 +286,7 @@ export const profileSchema = z
 export async function getProfile(user: SessionUser) {
   return withUser(user, async (db) => {
     const r = await db.query(
-      `SELECT u.id, u.email, u.name, u.role, u.locale, lp.slug, lp.sponsor_code, lp.whatsapp_e164, lp.photo_url, lp.country, lp.bio
+      `SELECT u.id, u.email, u.name, u.role, u.locale, lp.slug, lp.sponsor_code, lp.whatsapp_e164, lp.photo_url, lp.brand_name, lp.brand_tagline, lp.logo_url, lp.country, lp.bio
          FROM users u LEFT JOIN leader_profiles lp ON lp.user_id = u.id WHERE u.id = $1`,
       [user.id],
     );
@@ -275,7 +295,17 @@ export async function getProfile(user: SessionUser) {
     return {
       user: { id: x.id, email: x.email, name: x.name, role: x.role, locale: x.locale },
       profile: x.slug
-        ? { slug: x.slug, sponsor_code: x.sponsor_code, whatsapp_e164: x.whatsapp_e164, photo_url: x.photo_url, country: x.country, bio: x.bio ?? {} }
+        ? {
+            slug: x.slug,
+            sponsor_code: x.sponsor_code,
+            whatsapp_e164: x.whatsapp_e164,
+            photo_url: x.photo_url,
+            brand_name: x.brand_name,
+            brand_tagline: x.brand_tagline ?? {},
+            logo_url: x.logo_url,
+            country: x.country,
+            bio: x.bio ?? {},
+          }
         : null,
     };
   });
@@ -291,7 +321,7 @@ export async function updateProfile(user: SessionUser, body: z.infer<typeof prof
     if (body.name !== undefined || body.locale !== undefined) {
       await db.query(`UPDATE users SET name = coalesce($2, name), locale = coalesce($3, locale) WHERE id = $1`, [user.id, body.name ?? null, body.locale ?? null]);
     }
-    const profileTouched = [whatsapp, body.sponsor_code, body.photo_url, body.country, body.bio].some((v) => v !== undefined);
+    const profileTouched = [whatsapp, body.sponsor_code, body.photo_url, body.brand_name, body.brand_tagline, body.logo_url, body.country, body.bio].some((v) => v !== undefined);
     if (profileTouched) {
       const sets: string[] = [];
       const params: unknown[] = [user.id];
@@ -302,6 +332,12 @@ export async function updateProfile(user: SessionUser, body: z.infer<typeof prof
       if (whatsapp !== undefined) add("whatsapp_e164", whatsapp);
       if (body.sponsor_code !== undefined) add("sponsor_code", body.sponsor_code || null);
       if (body.photo_url !== undefined) add("photo_url", body.photo_url);
+      if (body.brand_name !== undefined) add("brand_name", body.brand_name);
+      if (body.brand_tagline !== undefined) {
+        params.push(JSON.stringify(body.brand_tagline));
+        sets.push(`brand_tagline = brand_tagline || $${params.length}::jsonb`);
+      }
+      if (body.logo_url !== undefined) add("logo_url", body.logo_url);
       if (body.country !== undefined) add("country", body.country);
       if (body.bio !== undefined) {
         params.push(JSON.stringify(body.bio));

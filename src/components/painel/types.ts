@@ -40,7 +40,7 @@ export interface MetricsData {
 
 export interface TeamMember {
   id: string; name: string; email?: string; role: PanelRole; active?: boolean; locale?: Locale | string;
-  profile?: { slug?: string; sponsor_code?: string | null; whatsapp_e164?: string | null; photo_url?: string | null; country?: string | null; bio?: Partial<Record<Locale, string>>; } | null;
+  profile?: { slug?: string; sponsor_code?: string | null; whatsapp_e164?: string | null; photo_url?: string | null; brand_name?: string | null; brand_tagline?: Record<string, string>; logo_url?: string | null; country?: string | null; bio?: Partial<Record<Locale, string>>; } | null;
   children?: TeamMember[];
 }
 

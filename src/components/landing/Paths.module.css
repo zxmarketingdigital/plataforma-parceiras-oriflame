@@ -2,6 +2,7 @@
   width: min(100%, var(--content-width));
   margin: 0 auto;
   padding: var(--space-10) var(--gutter);
+  background: var(--color-bg-soft);
 }
 
 .intro {
@@ -10,7 +11,7 @@
 
 .kicker {
   margin: 0 0 var(--space-3);
-  color: var(--color-dark);
+  color: var(--color-accent-ink);
   font-size: 0.76rem;
   font-weight: 750;
   letter-spacing: 0.09em;
@@ -19,15 +20,16 @@
 
 .intro h2,
 .card h3 {
-  font-family: var(--font-editorial);
-  font-weight: 560;
-  letter-spacing: -0.045em;
+  color: var(--color-primary);
+  font-family: var(--font-heading);
+  font-weight: var(--weight-heading);
+  letter-spacing: -0.025em;
 }
 
 .intro h2 {
   margin: 0;
   font-size: clamp(2.2rem, 4.5vw, 4rem);
-  line-height: 0.97;
+  line-height: 1.1;
 }
 
 .intro > p:last-child {
@@ -52,7 +54,8 @@
   padding: var(--space-6);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  background: rgb(255 255 255 / 0.54);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
 }
 
 .figure {
@@ -63,13 +66,13 @@
   place-items: center;
   margin-bottom: var(--space-7);
   border-radius: 48% 52% 57% 43%;
-  background: #e3eddc;
+  background: var(--color-mint-soft);
 }
 
 .figure span {
   position: absolute;
   display: block;
-  border: 2px solid var(--color-dark);
+  border: 2px solid var(--color-primary);
 }
 
 .figure span:nth-child(1) {
@@ -93,17 +96,17 @@
 }
 
 .card[data-path="poupar"] .figure {
-  background: #efe3cc;
+  background: var(--color-highlight);
 }
 
 .card[data-path="negocio"] .figure {
-  background: #d9e8e1;
+  background: var(--color-mint);
 }
 
 .card h3 {
   margin: 0;
   font-size: 1.85rem;
-  line-height: 1;
+  line-height: 1.15;
 }
 
 .card p {
@@ -115,11 +118,21 @@
 
 .card a {
   min-height: 2.75rem;
-  color: var(--color-dark);
+  color: var(--color-primary);
   font-size: 0.92rem;
   font-weight: 750;
+  text-decoration-line: underline;
   text-decoration-thickness: 0.1em;
   text-underline-offset: 0.22em;
+}
+
+.card a:hover {
+  color: var(--color-primary-hover);
+}
+
+.card a:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
 }
 
 @media (max-width: 48rem) {

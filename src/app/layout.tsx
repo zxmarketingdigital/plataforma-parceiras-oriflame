@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Figtree, Fraunces } from "next/font/google";
+import { Figtree } from "next/font/google";
 import { headers } from "next/headers";
 import "@/styles/tokens.css";
 import "@/styles/globals.css";
@@ -11,12 +11,6 @@ const figtree = Figtree({
   display: "swap",
 });
 
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-editorial",
-  display: "swap",
-});
-
 export const metadata: Metadata = {
 };
 
@@ -25,7 +19,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const lang = pickLocale(requestHeaders.get("accept-language"));
 
   return (
-    <html lang={lang} className={`${figtree.variable} ${fraunces.variable}`}>
+    <html lang={lang} className={figtree.variable}>
       <body>{children}</body>
     </html>
   );

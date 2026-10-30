@@ -1,3 +1,4 @@
+import { brandVars } from "@/core/brand";
 import { fill } from "@/core/i18n";
 import { PdfStatus } from "./PdfStatus";
 import { Plan30 } from "./Plan30";
@@ -87,8 +88,8 @@ export function ScenarioResults({ result, session, copy, lang, country, contactN
       </section>
       <Plan30 copy={copy.result} analysis={result.analysis} weeks={result.plan30} />
       <div className={styles.resultActions}>
-        {signupUrl ? <a className={styles.primaryButton} href={signupUrl}>{fill(copy.result.cta_signup, { leader_name: result.cta.leader.name })}</a> : null}
-        {whatsappUrl ? <a className={styles.secondaryButton} href={whatsappUrl}>{fill(copy.result.cta_whatsapp, { leader_name: result.cta.leader.name, name: contactName })}</a> : null}
+        {signupUrl ? <a className={styles.primaryButton} href={signupUrl}>{fill(copy.result.cta_signup, brandVars(result.cta.leader.name, result.cta.leader.brand_name))}</a> : null}
+        {whatsappUrl ? <a className={styles.secondaryButton} href={whatsappUrl}>{fill(copy.result.cta_whatsapp, { name: contactName, ...brandVars(result.cta.leader.name, result.cta.leader.brand_name) })}</a> : null}
         <PdfStatus id={session.id} token={session.token} initialStatus={result.pdf_status} copy={copy.result} />
         <button className={styles.textButton} type="button" onClick={onRestart}>{copy.result.restart}</button>
       </div>
