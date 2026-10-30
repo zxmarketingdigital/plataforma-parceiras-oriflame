@@ -23,7 +23,6 @@ Se ela tiver Docker Desktop ou OrbStack: `docker compose -f compose.dev.yml up -
 - Confirmar antes de seguir: `dig +short <dominio>` tem de devolver o IP. Sem isto o certificado HTTPS falha.
 
 ### 3. Código no servidor
-- O repositório é privado: no servidor, `gh auth login` com a conta GitHub que recebeu o acesso (ou `git clone` com um token de leitura).
 - `git clone https://github.com/zxmarketingdigital/plataforma-parceiras-oriflame.git && cd plataforma-parceiras-oriflame`
 
 ### 4. Instalar
